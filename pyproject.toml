@@ -1,0 +1,24 @@
+[project]
+name = "cache-divergence-harness"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "aditi-p31", email = "aditi.patodia31@gmail.com" }
+]
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "bfcl-eval>=2026.3.23",
+    "datasets>=5.0.1",
+    "huggingface-hub>=1.27.0",
+    "matplotlib>=3.11.1",
+    "numpy==1.26.4",
+    "requests>=2.34.2",
+    "scipy>=1.17.1",
+]
+
+[project.scripts]
+cache-divergence-harness = "cache_divergence_harness:main"
+
+[build-system]
+requires = ["uv_build>=0.12.1,<0.13.0"]
+build-backend = "uv_build"

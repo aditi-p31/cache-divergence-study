@@ -1,0 +1,149 @@
+{
+ "ordering": {
+  "lcpp-orderA": {
+   "engine": "llamacpp",
+   "within_arm_on": {
+    "n": 80,
+    "n_diverged": 1,
+    "rate": 0.0125,
+    "ci95": [
+     0.0022,
+     0.0675
+    ]
+   },
+   "cross_arm": {
+    "n": 80,
+    "n_diverged": 65,
+    "rate": 0.8125,
+    "ci95": [
+     0.7134,
+     0.8829
+    ]
+   }
+  },
+  "lcpp-orderB": {
+   "engine": "llamacpp",
+   "within_arm_on": {
+    "n": 80,
+    "n_diverged": 1,
+    "rate": 0.0125,
+    "ci95": [
+     0.0022,
+     0.0675
+    ]
+   },
+   "cross_arm": {
+    "n": 80,
+    "n_diverged": 65,
+    "rate": 0.8125,
+    "ci95": [
+     0.7134,
+     0.8829
+    ]
+   }
+  },
+  "vllm-orderA": {
+   "engine": "vllm",
+   "within_arm_on": {
+    "n": 80,
+    "n_diverged": 0,
+    "rate": 0.0,
+    "ci95": [
+     0,
+     0.0458
+    ]
+   },
+   "cross_arm": {
+    "n": 80,
+    "n_diverged": 50,
+    "rate": 0.625,
+    "ci95": [
+     0.5155,
+     0.7231
+    ]
+   }
+  },
+  "vllm-orderB": {
+   "engine": "vllm",
+   "within_arm_on": {
+    "n": 80,
+    "n_diverged": 22,
+    "rate": 0.275,
+    "ci95": [
+     0.1892,
+     0.3814
+    ]
+   },
+   "cross_arm": {
+    "n": 80,
+    "n_diverged": 50,
+    "rate": 0.625,
+    "ci95": [
+     0.5155,
+     0.7231
+    ]
+   }
+  }
+ },
+ "cacheram": {
+  "cacheram-zero": {
+   "n": 80,
+   "n_diverged": 1,
+   "rate": 0.0125,
+   "ci95": [
+    0.0022,
+    0.0675
+   ]
+  },
+  "cacheram-default": {
+   "n": 80,
+   "n_diverged": 31,
+   "rate": 0.3875,
+   "ci95": [
+    0.2882,
+    0.4971
+   ]
+  }
+ },
+ "gradient_controlled": {
+  "f16": {
+   "n": 80,
+   "n_diverged": 32,
+   "rate": 0.4,
+   "ci95": [
+    0.2996,
+    0.5095
+   ]
+  },
+  "q4km": {
+   "n": 80,
+   "n_diverged": 65,
+   "rate": 0.8125,
+   "ci95": [
+    0.7134,
+    0.8829
+   ]
+  },
+  "q3km": {
+   "n": 80,
+   "n_diverged": 62,
+   "rate": 0.775,
+   "ci95": [
+    0.6721,
+    0.8527
+   ]
+  }
+ },
+ "reset_control_llamacpp": {
+  "n": 40,
+  "recompute_reproducible": 40,
+  "cached_reproducible": 40,
+  "cached_reproducible_given_cold": 40,
+  "n_cold_reproducible": 40,
+  "cache_effect_within_generation": 14,
+  "ci95_cached_reproducible": [
+   0.9124,
+   1
+  ]
+ }
+}

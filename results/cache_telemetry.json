@@ -1,0 +1,30 @@
+{
+ "vllm-llama8b-fp16": {
+  "off": {
+   "n_observations": 494,
+   "min_pct": 0.0,
+   "max_pct": 0.0,
+   "final_pct": 0.0
+  },
+  "on": {
+   "n_observations": 248,
+   "min_pct": 83.3,
+   "max_pct": 98.2,
+   "final_pct": 98.2
+  }
+ },
+ "vllm-qwen7b-fp16": {
+  "off": {
+   "n_observations": 536,
+   "min_pct": 0.0,
+   "max_pct": 0.0,
+   "final_pct": 0.0
+  },
+  "on": {
+   "n_observations": 226,
+   "min_pct": 87.1,
+   "max_pct": 99.1,
+   "final_pct": 99.1
+  }
+ }
+}

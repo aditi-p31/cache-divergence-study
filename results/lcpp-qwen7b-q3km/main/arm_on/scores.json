@@ -1,0 +1,322 @@
+{
+ "multi_turn_base_0": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_1": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_2": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_3": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_4": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_5": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_6": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_7": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_8": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_9": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_10": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_11": {
+  "valid": false,
+  "error_type": "multi_turn:empty_turn_model_response"
+ },
+ "multi_turn_base_12": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_13": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_14": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_15": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_16": {
+  "valid": true,
+  "error_type": null
+ },
+ "multi_turn_base_17": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_18": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_19": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_20": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_21": {
+  "valid": false,
+  "error_type": "multi_turn:empty_turn_model_response"
+ },
+ "multi_turn_base_22": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_23": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_24": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_25": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_26": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_27": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_28": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_29": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_30": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_31": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_32": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_33": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_34": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_35": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_36": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_37": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_38": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_39": {
+  "valid": true,
+  "error_type": null
+ },
+ "multi_turn_base_40": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_41": {
+  "valid": false,
+  "error_type": "multi_turn:empty_turn_model_response"
+ },
+ "multi_turn_base_42": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_43": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_44": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_45": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_46": {
+  "valid": false,
+  "error_type": "multi_turn:empty_turn_model_response"
+ },
+ "multi_turn_base_47": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_48": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_49": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_50": {
+  "valid": true,
+  "error_type": null
+ },
+ "multi_turn_base_51": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_52": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_53": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_54": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_55": {
+  "valid": false,
+  "error_type": "multi_turn:empty_turn_model_response"
+ },
+ "multi_turn_base_56": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_57": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_58": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_59": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_60": {
+  "valid": true,
+  "error_type": null
+ },
+ "multi_turn_base_61": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_62": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_63": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_64": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_65": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_66": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_67": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_68": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_69": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_70": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_71": {
+  "valid": false,
+  "error_type": "multi_turn:force_terminated"
+ },
+ "multi_turn_base_72": {
+  "valid": false,
+  "error_type": "multi_turn:empty_turn_model_response"
+ },
+ "multi_turn_base_73": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_74": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_75": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_76": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ },
+ "multi_turn_base_77": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_78": {
+  "valid": false,
+  "error_type": "multi_turn:execution_response_mismatch"
+ },
+ "multi_turn_base_79": {
+  "valid": false,
+  "error_type": "multi_turn:instance_state_mismatch"
+ }
+}

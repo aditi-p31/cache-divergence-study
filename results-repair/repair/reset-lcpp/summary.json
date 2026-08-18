@@ -1,0 +1,482 @@
+[
+ {
+  "item_idx": 0,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": true,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 109,
+   "cold_2": 0,
+   "warm_2": 109
+  }
+ },
+ {
+  "item_idx": 1,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 70,
+   "cold_2": 0,
+   "warm_2": 70
+  }
+ },
+ {
+  "item_idx": 2,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": true,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 101,
+   "cold_2": 0,
+   "warm_2": 101
+  }
+ },
+ {
+  "item_idx": 3,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 79,
+   "cold_2": 0,
+   "warm_2": 79
+  }
+ },
+ {
+  "item_idx": 4,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 155,
+   "cold_2": 0,
+   "warm_2": 155
+  }
+ },
+ {
+  "item_idx": 5,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": true,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 100,
+   "cold_2": 0,
+   "warm_2": 100
+  }
+ },
+ {
+  "item_idx": 6,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 86,
+   "cold_2": 0,
+   "warm_2": 86
+  }
+ },
+ {
+  "item_idx": 7,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 114,
+   "cold_2": 0,
+   "warm_2": 114
+  }
+ },
+ {
+  "item_idx": 8,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 148,
+   "cold_2": 0,
+   "warm_2": 148
+  }
+ },
+ {
+  "item_idx": 9,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 104,
+   "cold_2": 0,
+   "warm_2": 104
+  }
+ },
+ {
+  "item_idx": 10,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 104,
+   "cold_2": 0,
+   "warm_2": 104
+  }
+ },
+ {
+  "item_idx": 11,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 109,
+   "cold_2": 0,
+   "warm_2": 109
+  }
+ },
+ {
+  "item_idx": 12,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": true,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 111,
+   "cold_2": 0,
+   "warm_2": 111
+  }
+ },
+ {
+  "item_idx": 13,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 102,
+   "cold_2": 0,
+   "warm_2": 102
+  }
+ },
+ {
+  "item_idx": 14,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 96,
+   "cold_2": 0,
+   "warm_2": 96
+  }
+ },
+ {
+  "item_idx": 15,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": true,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 138,
+   "cold_2": 0,
+   "warm_2": 138
+  }
+ },
+ {
+  "item_idx": 16,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 97,
+   "cold_2": 0,
+   "warm_2": 97
+  }
+ },
+ {
+  "item_idx": 17,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": true,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 102,
+   "cold_2": 0,
+   "warm_2": 102
+  }
+ },
+ {
+  "item_idx": 18,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 73,
+   "cold_2": 0,
+   "warm_2": 73
+  }
+ },
+ {
+  "item_idx": 19,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 109,
+   "cold_2": 0,
+   "warm_2": 109
+  }
+ },
+ {
+  "item_idx": 20,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 107,
+   "cold_2": 0,
+   "warm_2": 107
+  }
+ },
+ {
+  "item_idx": 21,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": true,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 90,
+   "cold_2": 0,
+   "warm_2": 90
+  }
+ },
+ {
+  "item_idx": 22,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 99,
+   "cold_2": 0,
+   "warm_2": 99
+  }
+ },
+ {
+  "item_idx": 23,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 84,
+   "cold_2": 0,
+   "warm_2": 84
+  }
+ },
+ {
+  "item_idx": 24,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 83,
+   "cold_2": 0,
+   "warm_2": 83
+  }
+ },
+ {
+  "item_idx": 25,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": true,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 112,
+   "cold_2": 0,
+   "warm_2": 112
+  }
+ },
+ {
+  "item_idx": 26,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 113,
+   "cold_2": 0,
+   "warm_2": 113
+  }
+ },
+ {
+  "item_idx": 27,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 103,
+   "cold_2": 0,
+   "warm_2": 103
+  }
+ },
+ {
+  "item_idx": 28,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 94,
+   "cold_2": 0,
+   "warm_2": 94
+  }
+ },
+ {
+  "item_idx": 29,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 113,
+   "cold_2": 0,
+   "warm_2": 113
+  }
+ },
+ {
+  "item_idx": 30,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": true,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 83,
+   "cold_2": 0,
+   "warm_2": 83
+  }
+ },
+ {
+  "item_idx": 31,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": true,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 107,
+   "cold_2": 0,
+   "warm_2": 107
+  }
+ },
+ {
+  "item_idx": 32,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": true,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 85,
+   "cold_2": 0,
+   "warm_2": 85
+  }
+ },
+ {
+  "item_idx": 33,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 75,
+   "cold_2": 0,
+   "warm_2": 75
+  }
+ },
+ {
+  "item_idx": 34,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": true,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 85,
+   "cold_2": 0,
+   "warm_2": 85
+  }
+ },
+ {
+  "item_idx": 35,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": true,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 96,
+   "cold_2": 0,
+   "warm_2": 96
+  }
+ },
+ {
+  "item_idx": 36,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 88,
+   "cold_2": 0,
+   "warm_2": 88
+  }
+ },
+ {
+  "item_idx": 37,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 107,
+   "cold_2": 0,
+   "warm_2": 107
+  }
+ },
+ {
+  "item_idx": 38,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": false,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 88,
+   "cold_2": 0,
+   "warm_2": 88
+  }
+ },
+ {
+  "item_idx": 39,
+  "cold_reproducible": true,
+  "warm_reproducible": true,
+  "cache_effect": true,
+  "cached_tokens": {
+   "cold_1": 0,
+   "warm_1": 117,
+   "cold_2": 0,
+   "warm_2": 117
+  }
+ }
+]
