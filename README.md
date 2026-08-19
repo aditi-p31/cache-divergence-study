@@ -1,7 +1,6 @@
 # Cache divergence study: harness, data, and analysis
 
-Artifact for the paper *Same Request, Different Answer: Prompt Caching Makes
-LLM Serving History-Dependent* (IEEE Access submission, 2026).
+Artifact for the paper *Warm Cache, Different Answer: Quantization Amplifies Cache-Induced Divergence in LLM Serving* (IEEE Access submission, 2026).
 
 Author: Aditi Patodiya. Everything here is released so that each number in
 the paper can be recomputed from the raw logs, and so that the measurement
