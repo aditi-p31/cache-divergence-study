@@ -27,13 +27,16 @@ def fig_mechanism(rep, out: Path):
     reset = rep["reset_control_llamacpp"]
     order = rep["ordering"]
 
+    off = order["lcpp-orderB"]["cross_arm"]  # placeholder, replaced below
+    off_rate = rep["cacheoff_rerun"]["rate"]
+    off_ci = rep["cacheoff_rerun"]["ci95"]
     labels = ["cache off\n(re-run)", "cache on\n(re-run,\ncache-ram 0)",
               "cache on\n(re-run,\ncache-ram default)", "cache on vs off\n(same run)"]
-    vals = [0.0,
+    vals = [100 * off_rate,
             100 * cr["cacheram-zero"]["rate"],
             100 * cr["cacheram-default"]["rate"],
             100 * order["lcpp-orderB"]["cross_arm"]["rate"]]
-    errs = [[0, 0],
+    errs = [[100 * (off_rate - off_ci[0]), 100 * (off_ci[1] - off_rate)],
             [100 * (cr["cacheram-zero"]["rate"] - cr["cacheram-zero"]["ci95"][0]),
              100 * (cr["cacheram-zero"]["ci95"][1] - cr["cacheram-zero"]["rate"])],
             [100 * (cr["cacheram-default"]["rate"] - cr["cacheram-default"]["ci95"][0]),
@@ -48,7 +51,7 @@ def fig_mechanism(rep, out: Path):
            yerr=[[e[0] for e in errs], [e[1] for e in errs]],
            capsize=4, error_kw={"lw": 1, "ecolor": "#333"})
     for i, v in enumerate(vals):
-        ax.text(i, v + 3, f"{v:.1f}%", ha="center", fontsize=9)
+        ax.text(i, v + errs[i][1] + 2.5, f"{v:.1f}%", ha="center", fontsize=9)
     ax.set_xticks(list(x))
     ax.set_xticklabels(labels, fontsize=8)
     ax.set_ylabel("episodes differing (%)")
