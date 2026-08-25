@@ -1,6 +1,7 @@
 # Cache divergence study: harness, data, and analysis
 
-Artifact for the paper *Same Request, Different Answer: Quantization Amplifies Cache-Induced Divergence in LLM Serving* (IEEE Access submission, 2026).
+Artifact for the paper *Same Request, Different Answer: Prompt Caching Makes
+LLM Serving History-Dependent* (IEEE Access submission, 2026).
 
 Author: Aditi Patodiya. Everything here is released so that each number in
 the paper can be recomputed from the raw logs, and so that the measurement
@@ -154,3 +155,14 @@ methods section.
   vLLM, because the two engines return different logprob shapes. Each
   configuration records which level was used in `findings.json` under
   `comparison_level`.
+
+
+## Statistical checks added at submission
+
+- `analysis/robustness.py` computes the moving-block bootstrap and the
+  position-dependence permutation test reported in the paper, and simulates
+  the power of the single-turn bridge. Output: `analysis/robustness.json`.
+- `analysis/trend_test.py` computes the Cochran-Armitage trend test across
+  weight formats from `findings.json`. Output: `analysis/trend_test.json`
+  (z = 5.68, p = 1.3e-8).
+- `paper_preprint.pdf` is the submitted manuscript.
