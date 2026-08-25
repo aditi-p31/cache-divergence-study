@@ -1,0 +1,39 @@
+{
+ "cacheram-default": {
+  "rate": 0.3875,
+  "quartiles": [
+   16,
+   6,
+   6,
+   3
+  ],
+  "trend_p": 0.0002,
+  "block_ci95": [
+   0.2,
+   0.55
+  ]
+ },
+ "grid lcpp-qwen7b-q4km": {
+  "rate": 0.775,
+  "quartiles": [
+   17,
+   16,
+   13,
+   16
+  ],
+  "trend_p": 0.5885,
+  "block_ci95": [
+   0.675,
+   0.875
+  ]
+ },
+ "power": {
+  "0.5pp": 0.224,
+  "0.8pp": 0.573,
+  "1.0pp": 0.808,
+  "1.5pp": 1.0,
+  "2.0pp": 1.0
+ },
+ "bridge_discordant_rate": 0.0154,
+ "bridge_n_distinct": 1300
+}
