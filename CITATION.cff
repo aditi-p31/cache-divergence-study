@@ -6,6 +6,7 @@ authors:
     given-names: Aditi
     orcid: "https://orcid.org/0009-0002-3162-4863"
 repository-code: "https://github.com/aditi-p31/cache-divergence-study"
+license: MIT
 preferred-citation:
   type: article
   title: "Same Request, Different Answer: Quantization Amplifies Cache-Induced Divergence in LLM Serving"
