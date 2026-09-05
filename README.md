@@ -165,12 +165,10 @@ methods section.
 - `analysis/trend_test.py` computes the Cochran-Armitage trend test across
   weight formats from `findings.json`. Output: `analysis/trend_test.json`
   (z = 5.68, p = 1.3e-8).
-- `paper_preprint.pdf` is the submitted manuscript.
+- The submitted manuscript is on arXiv; the identifier will be added here on announcement.
 
 ## License
 
 Code is released under the MIT License (see `LICENSE`). The measurement
 dataset (`results/`, `results-repair/`, `findings.json`,
-`repair_findings.json`) is released under CC BY 4.0. `paper_preprint.pdf`
-is covered by neither; it is the manuscript submitted to the IEEE, included
-under the IEEE preprint policy.
+`repair_findings.json`) is released under CC BY 4.0.

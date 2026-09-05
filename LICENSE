@@ -20,14 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Scope notes:
-
-1. The measurement dataset in this repository (the results/ and
-   results-repair/ directories, findings.json, and repair_findings.json) is
-   licensed separately under the Creative Commons Attribution 4.0
-   International License (CC BY 4.0).
-
-2. paper_preprint.pdf is the manuscript submitted to the IEEE and is NOT
-   covered by either license above. It is included for reference under the
-   IEEE preprint policy; copyright may be transferred to the IEEE, after
-   which that file may be replaced or removed.
+Scope note: the measurement dataset in this repository (the results/ and
+results-repair/ directories, findings.json, and repair_findings.json) is
+licensed separately under the Creative Commons Attribution 4.0
+International License (CC BY 4.0).
