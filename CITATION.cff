@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this harness or the divergence dataset, please cite the paper below."
+title: "cache-divergence-study: measurement harness and dataset for prompt-cache divergence in LLM serving"
+authors:
+  - family-names: Patodiya
+    given-names: Aditi
+    orcid: "https://orcid.org/0009-0002-3162-4863"
+repository-code: "https://github.com/aditi-p31/cache-divergence-study"
+preferred-citation:
+  type: article
+  title: "Same Request, Different Answer: Quantization Amplifies Cache-Induced Divergence in LLM Serving"
+  authors:
+    - family-names: Patodiya
+      given-names: Aditi
+      orcid: "https://orcid.org/0009-0002-3162-4863"
+  year: 2026
+  notes: "Under review. arXiv identifier will be added on announcement."
