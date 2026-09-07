@@ -1,11 +1,31 @@
 # Cache divergence study: harness, data, and analysis
 
-Artifact for the paper *Same Request, Different Answer: Prompt Caching Makes
-LLM Serving History-Dependent* (IEEE Access submission, 2026).
+Artifact for the paper *Same Request, Different Answer: Quantization Amplifies
+Cache-Induced Divergence in LLM Serving*
+([arXiv:2609.04748](https://arxiv.org/abs/2609.04748), under review at IEEE Access).
 
 Author: Aditi Patodiya. Everything here is released so that each number in
 the paper can be recomputed from the raw logs, and so that the measurement
 can be repeated on other stacks.
+
+## Cite this work
+
+If you use this harness or the divergence dataset, please cite the paper:
+
+```bibtex
+@article{patodiya2026samerequest,
+  title   = {Same Request, Different Answer: Quantization Amplifies
+             Cache-Induced Divergence in LLM Serving},
+  author  = {Patodiya, Aditi},
+  journal = {arXiv preprint arXiv:2609.04748},
+  year    = {2026},
+  doi     = {10.48550/arXiv.2609.04748},
+  url     = {https://arxiv.org/abs/2609.04748}
+}
+```
+
+GitHub's "Cite this repository" button (from `CITATION.cff`) emits the same
+citation in BibTeX and APA.
 
 ## What the study measures
 

@@ -15,4 +15,13 @@ preferred-citation:
       given-names: Aditi
       orcid: "https://orcid.org/0009-0002-3162-4863"
   year: 2026
-  notes: "Under review. arXiv identifier will be added on announcement."
+  month: 9
+  url: "https://arxiv.org/abs/2609.04748"
+  identifiers:
+    - type: other
+      value: "arXiv:2609.04748"
+      description: "arXiv identifier"
+    - type: doi
+      value: "10.48550/arXiv.2609.04748"
+      description: "arXiv DOI"
+  notes: "Preprint, arXiv:2609.04748 [cs.SE]. Under review at IEEE Access."
