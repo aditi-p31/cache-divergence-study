@@ -115,7 +115,10 @@ the driver on our hardware does not provide.
   about cache effects on agent task success. Trajectory-level measurements
   from that workload are unaffected. Outcome conclusions come from the
   mathematics bridge.
-- One GPU model, one driver version, single-tenant serving.
+- One GPU model (RTX 4090) and single-tenant serving; three machines and
+  driver versions across the original grid, the ordering experiments and the
+  revision runs (VERSIONS.md), with the revision machine checked against the
+  earlier passes token for token before use.
 
 ## License
 
