@@ -38,16 +38,18 @@ def fig_mechanism(rep, out: Path, cells=None):
         vals.append(v); errs.append([v - 100 * lo, 100 * hi - v])
     colors = [BLUE, BLUE, RED, GREY]
 
-    fig, ax = plt.subplots(figsize=(6.4, 3.3))
+    # drawn at the IEEE Access column width (3.5 in) so it prints at 1:1 with legible labels
+    fig, ax = plt.subplots(figsize=(3.5, 1.9))
     x = range(len(vals))
     ax.bar(x, vals, color=colors, width=0.6,
            yerr=[[e[0] for e in errs], [e[1] for e in errs]],
-           capsize=4, error_kw={"lw": 1, "ecolor": "#333"})
+           capsize=3, error_kw={"lw": 0.9, "ecolor": "#333"})
     for i, v in enumerate(vals):
-        ax.text(i, v + errs[i][1] + 2.5, f"{v:.1f}%", ha="center", fontsize=9)
+        ax.text(i, v + errs[i][1] + 2.5, f"{v:.1f}%", ha="center", fontsize=7)
     ax.set_xticks(list(x))
-    ax.set_xticklabels(labels, fontsize=8)
-    ax.set_ylabel("episodes differing (%)")
+    ax.set_xticklabels(labels, fontsize=6)
+    ax.tick_params(axis="y", labelsize=7)
+    ax.set_ylabel("episodes differing (%)", fontsize=8)
     ax.set_ylim(0, 100)
     ax.grid(axis="y", alpha=0.3)
     ax.set_axisbelow(True)
