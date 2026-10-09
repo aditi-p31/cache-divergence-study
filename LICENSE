@@ -20,7 +20,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Scope note: the measurement dataset in this repository (the results/ and
-results-repair/ directories, findings.json, and repair_findings.json) is
+Scope note: the measurement dataset in this repository (the results/,
+results-repair/ and results-revision/ directories, revision/orders/,
+findings.json, repair_findings.json, and the JSON result files in analysis/) is
 licensed separately under the Creative Commons Attribution 4.0
 International License (CC BY 4.0).

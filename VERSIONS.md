@@ -9,10 +9,13 @@
   (official Qwen repo, sha recorded in models/.cache/huggingface)
 - Server settings (all runs): --parallel 1, -c 16384, -ngl 99, --seed 42,
   KV dtype f16 both arms; cache arm via per-request cache_prompt
-- Sampling (all runs): temperature 0.0, seed 42, logprobs 1, max_tokens
-  min(4096, ctx - prompt - 2)
-- vLLM (pod lane): version pinned at pod setup time, recorded here before
-  any measured run
+- Sampling (all runs): temperature 0.0, seed 42, max_tokens
+  min(4096, ctx - prompt - 2); logprobs 1 in the original grid, the repair
+  runs and revision blocks B5 and B6, logprobs 5 in revision blocks B1 to B4
+  and B7
+- vLLM (pod lane): 0.11.0 with torch 2.8.0+cu128 and transformers<5 (pins
+  in harness/pod_setup_repair.sh and harness/pod_final_lane.sh; entry
+  completed 2026-10)
 
 ## Plan addenda
 
@@ -70,6 +73,47 @@
   treats pod-unreachable as terminal. Revised projection: grid $14-18 of
   ~$19 remaining.
 
+## Second pod (2026-08, experiments in results-repair/)
+
+- RunPod on-demand RTX 4090 24GB with a 580-series CUDA driver (noted in
+  harness/pod_setup_repair.sh), nvcc 12.6
+- llama.cpp b10434 / 7e4c0a9 (same build as the grid); vLLM 0.11.0,
+  torch 2.8.0+cu128, transformers<5, pinned by harness/pod_setup_repair.sh
+- The exact driver build (580.126.20) and transformers version (4.57) are
+  the values reported in the paper; no setup log from this pod is included
+  in the release
+
+## Model files (all runs)
+
+`results/MODEL_SHA256SUMS` lists the SHA-256 of every model file the study used:
+the eight GGUF files of the llama.cpp runs, the dequantized Q4_K_M-to-F16 file
+of control B7, and the four safetensors shards of each vLLM checkpoint. The pod
+recorded checksums only for the Qwen2.5-7B GGUF files and the dequantized file,
+on the revision machine (`results-revision/diag/SHA256SUMS`, `SHA256SUMS.deq`).
+The values for the other files are the Hugging Face LFS SHA-256 of each file at
+the repository revision below, fetched 2026-10-09. Each repository was last modified before the August 2026
+runs, and the four Qwen2.5-7B values recorded on the pod equal the Hugging Face
+values for that repository. The original grid's scripts do not record the
+download of two files, Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf and
+Qwen2.5-7B-Instruct-Q4_K_M.gguf; their listed values are those of the files
+of those names in the bartowski repositories. For Qwen2.5-7B the revision
+machine's copy with this checksum reproduced the original grid's Q4_K_M
+passes token for token (gate B0 below), which is the evidence that the grid
+used the same file.
+
+- bartowski/Meta-Llama-3.1-8B-Instruct-GGUF, revision bf5b95e96dac0462e2a09145ec66cae9a3f12067
+  (last modified 2024-12-01): Q8_0, Q4_K_M, Q3_K_M
+- bartowski/Qwen2.5-7B-Instruct-GGUF, revision 8911e8a47f92bac19d6f5c64a2e2095bd2f7d031
+  (last modified 2024-09-19): f16, Q8_0, Q4_K_M, Q3_K_M
+- bartowski/Qwen2.5-14B-Instruct-GGUF, revision 05244aa5d871c661c80082a15d3bce44714d068d
+  (last modified 2024-11-08): Q4_K_M (agentic grid and single-turn bridge)
+- vLLM checkpoints, served in their native bfloat16 (no `vllm serve`
+  command in `harness/` passes a dtype override): Qwen/Qwen2.5-7B-Instruct, revision
+  a09a35458c702b33eeacc393d103063234e8bc28 (2025-01-12), four shards;
+  NousResearch/Meta-Llama-3.1-8B-Instruct, revision
+  d10aef7999a2b5ba950ab3974312feeedbfe0b77 (2024-07-24), four shards;
+  listed under their repository paths
+
 ## Revision collection (2026-10-07 to 2026-10-08, blocks B0 to B7)
 
 - GPU: one NVIDIA GeForce RTX 4090, 24564 MiB, driver 595.91.07, VBIOS
@@ -77,9 +121,9 @@
   record in `results-revision/diag/env_gpu_revision_machine.txt`)
 - llama.cpp: the same release b10434, commit
   7e4c0a96880dae4fc4268ad441f8a6446bd5460a, built from source with CUDA
-- Model files: identical to the original grid by SHA-256
-  (`results-revision/diag/SHA256SUMS`); the dequantized Q4_K_M to F16 file
-  used in B7 is listed in `results-revision/diag/SHA256SUMS.deq`
+- Model files: identical by SHA-256 to the Hugging Face files listed in
+  `results/MODEL_SHA256SUMS` (`results-revision/diag/SHA256SUMS`); the dequantized Q4_K_M to F16 file used in B7
+  is listed in `results-revision/diag/SHA256SUMS.deq`
 - Harness environment: this repository's `pyproject.toml` and `uv.lock`; the
   copies recorded on the pod differ only by an extra pin of pymupdf 1.28.2,
   which no harness or analysis script imports. The harness files on the pod

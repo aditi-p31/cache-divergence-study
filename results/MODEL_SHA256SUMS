@@ -1,0 +1,17 @@
+863c978275bca3fdacdde06cbfc1a65f2bd65210bb7ecfd9ded3b24219d81b54  Qwen2.5-7B-Instruct-f16.gguf
+9c6a6e61664446321d9c0dd7ee28a0d03914277609e21bc0e1fce4abe780ce1b  Qwen2.5-7B-Instruct-Q8_0.gguf
+65b8fcd92af6b4fefa935c625d1ac27ea29dcb6ee14589c55a8f115ceaaa1423  Qwen2.5-7B-Instruct-Q4_K_M.gguf
+6738a2d4f9b280c55b2a19a7ab27334a75d2cafc6ef82a11a075f4b5613eb736  Qwen2.5-7B-Instruct-Q3_K_M.gguf
+9da71c45c90a821809821244d4971e5e5dfad7eb091f0b8ff0546392393b6283  Meta-Llama-3.1-8B-Instruct-Q8_0.gguf
+7b064f5842bf9532c91456deda288a1b672397a54fa729aa665952863033557c  Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf
+6be122b5c8f2a33974953e58e0ffd2be505661acc6f4caf733e4bca130e89fea  Meta-Llama-3.1-8B-Instruct-Q3_K_M.gguf
+e47ad95dad6ff848b431053b375adb5d39321290ea2c638682577dafca87c008  Qwen2.5-14B-Instruct-Q4_K_M.gguf
+614fe0ee5ef53b142d84e0d6c3faff777cdb224f6b1a342a127b47b4fae11ac2  Qwen2.5-7B-Instruct-Q4_K_M-deq-F16.gguf
+a1333e6293854747c481288ea83b348226af178dd565c49b6f9495ba1966aba7  Qwen/Qwen2.5-7B-Instruct/model-00001-of-00004.safetensors
+f5d25a2772cb825164a2a2c0fb6d51a87e282abf21e4dd75bc5cfb3cd0ea6185  Qwen/Qwen2.5-7B-Instruct/model-00002-of-00004.safetensors
+8efdec4c1bc12317ae1a38dc42b595ce777738a64deea3fcb8a0a91381bcdfd5  Qwen/Qwen2.5-7B-Instruct/model-00003-of-00004.safetensors
+1a72d403cdf0c1ec3cb7f289f17b394a01e64394c2e9b3c0f94dbce3faf879bd  Qwen/Qwen2.5-7B-Instruct/model-00004-of-00004.safetensors
+2b1879f356aed350030bb40eb45ad362c89d9891096f79a3ab323d3ba5607668  NousResearch/Meta-Llama-3.1-8B-Instruct/model-00001-of-00004.safetensors
+09d433f650646834a83c580877bd60c6d1f88f7755305c12576b5c7058f9af15  NousResearch/Meta-Llama-3.1-8B-Instruct/model-00002-of-00004.safetensors
+fc1cdddd6bfa91128d6e94ee73d0ce62bfcdb7af29e978ddcab30c66ae9ea7fa  NousResearch/Meta-Llama-3.1-8B-Instruct/model-00003-of-00004.safetensors
+92ecfe1a2414458b4821ac8c13cf8cb70aed66b5eea8dc5ad9eeb4ff309d6d7b  NousResearch/Meta-Llama-3.1-8B-Instruct/model-00004-of-00004.safetensors

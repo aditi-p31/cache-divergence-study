@@ -12,7 +12,7 @@ and applies a wider set of answer patterns, in priority order, so the
 correction is auditable and requires no additional inference.
 
 Usage:
-  uv run python analysis/reextract_bridge.py results-pod/results -o rescored/
+  uv run python analysis/reextract_bridge.py results [-o DIR]
 """
 
 import argparse
@@ -145,7 +145,8 @@ def main() -> None:
           f"{'acc cold':>9} {'acc warm':>9}")
     print("-" * 82)
     for d in sorted(root.glob("bridge-*")):
-        old = json.load(open(d / "cache_on" / "summary.json"))
+        ct = d / "cache_on" / "summary_collection_time.json"   # collection-time scores, when shipped
+        old = json.load(open(ct if ct.exists() else d / "cache_on" / "summary.json"))
         res = rescore(d)
         if not res:
             continue

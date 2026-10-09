@@ -58,12 +58,14 @@ analysis/
   make_figures.py     findings.json -> paper figures
 results/
   <config>/<pass>/arm_<on|off>/
-      raw_requests.jsonl   one record per request: prompt hash, token ids,
-                           logprobs, latency, server-reported cached_tokens
+      raw_requests.jsonl.gz   one record per request: prompt hash, tokens with
+                           logprobs (token ids on llama.cpp, strings on vLLM), latency,
+                           server-reported cached_tokens (llama.cpp; null on vLLM 0.11.0)
       model_results.json   benchmark-format responses
       scores.json          checker verdicts
       episode_meta.json    per-episode wall time, request count, errors
   bridge-<config>/cache_on/summary.json   per-item 4-pass bridge results
+  MODEL_SHA256SUMS     SHA-256 of every model file used, GGUF and vLLM shards (provenance in VERSIONS.md)
 VERSIONS.md           pinned versions, plan addenda, incident log
 ```
 
@@ -74,6 +76,7 @@ uv sync        # installs the pinned environment from uv.lock (src/ holds only t
 uv run python analysis/analyze.py results -o findings.json
 uv run python analysis/analyze_repair.py --root results-repair -o repair_findings.json
 uv run python analysis/make_figures.py --findings findings.json --repair repair_findings.json -o figures
+uv run python analysis/reextract_bridge.py results   # re-derives the bridge answers; with -o DIR it writes summaries identical to results/bridge-*/cache_on/summary.json
 ```
 
 `findings.json` and `repair_findings.json` at the repository root are the files the manuscript's
@@ -87,8 +90,20 @@ Hardware used: one NVIDIA RTX 4090 (24 GB), driver 570.211.01.
 
 ```
 bash harness/pod_setup.sh          # CUDA toolkit, llama.cpp build, venvs
-bash harness/pod_phase2.sh         # full grid, resumable, budget-capped
+# pod_setup.sh installs vLLM unpinned; the measured runs used 0.11.0, pinned as in
+# harness/pod_setup_repair.sh:
+#   uv pip install "vllm==0.11.0" --torch-backend=cu128 && uv pip install "transformers<5"
 ```
+
+The original grid was collected by resumable scripts that skip cells already
+marked done: `harness/pod_run_grid.sh` and `pod_run_grid_v2.sh` (llama.cpp
+lane, the first vLLM attempts and the Q4_K_M bridge), then `pod_vllm_lane.sh`, `pod_final_lane.sh`, `pod_phase2.sh` and
+`pod_phase3.sh` (vLLM, bridges, Qwen2.5-14B). The ordering experiments and
+controlled re-measurements (`results-repair/`) came from `pod_setup_repair.sh`,
+`pod_repair.sh`, `pod_cacheram_run.sh` and `pod_quantgrad.sh`, and the revision
+runs (`results-revision/`) from `revision/pod_setup_b.sh` and
+`revision/pod_phaseB.sh`. The scripts also contain steps for SGLang and for
+quantized vLLM configurations that were not run; no such results exist.
 
 Pinned versions are in `VERSIONS.md` and are required to reproduce the
 results, because the measured effects depend on the engine version and the
@@ -118,10 +133,11 @@ the driver on our hardware does not provide.
   about cache effects on agent task success. Trajectory-level measurements
   from that workload are unaffected. Outcome conclusions come from the
   mathematics bridge.
-- One GPU model (RTX 4090) and single-tenant serving; three machines and
-  driver versions across the original grid, the ordering experiments and the
-  revision runs (VERSIONS.md), with the revision machine checked against the
-  earlier passes token for token before use.
+- One GPU model (RTX 4090) and single-tenant serving; three machines of the
+  same type across the original grid (driver 570.211.01), the ordering
+  experiments (a 580-series driver, see VERSIONS.md) and the revision runs
+  (driver 595.91.07), with the revision machine checked against the earlier
+  passes token for token before use.
 
 ## License
 
@@ -156,9 +172,13 @@ collection-time scores are preserved alongside as
 
 Effect of the correction: unparseable answers per bridge fell from as many
 as 158 to 0 or 1, accuracy moved from an implausible 53-76 percent to 89-93
-percent, and cache-attributable correctness flips fell from 99 to 24 across
-1500 items. An apparent directional effect favouring the cached path
-(p = 0.009) disappeared once scoring was correct (p = 0.31); it had been an
+percent, and cache-attributable correctness flips fell from 99 to 24 summed
+over the six bridge runs (1,500 item-runs; the 200-item Qwen2.5-7B Q4_K_M run
+repeats the first 200 problems of the 500-item run), and from 88 to 20 over the five
+distinct configurations the paper pools (1,300 observations, 500 unique
+problems). An apparent directional effect favouring the cached path (exact
+binomial p = 0.009 over the six runs, 0.025 over the five) disappeared once
+scoring was correct (p = 0.31 and p = 0.26); it had been an
 artifact of the two paths differing in how often they emitted a parseable
 format.
 
@@ -200,9 +220,9 @@ kept so that the revision's changes can be audited.
   permutation test, and a power simulation for the single-turn bridge.
   Output: `analysis/robustness.json`. The position-dependence test (quartile
   counts and permutation p-values in Section IV-C) is still reported. The
-  moving-block bootstrap and the power simulation are replaced by the circular
-  block bootstrap, the problem-level bridge analysis and the clustered power
-  statement (`analysis/revision_stats.py`).
+  moving-block bootstrap is replaced by the circular block bootstrap and the
+  problem-level bridge analysis (`analysis/revision_stats.py`); the power
+  simulation is no longer reported.
 - `analysis/trend_test.py`: Cochran-Armitage trend test across weight formats.
   Output: `analysis/trend_test.json`. Replaced by paired trend models that
   keep episode identity (`analysis/revision_stats.py`,
@@ -301,6 +321,13 @@ cache-off rerun entry (0 of 80 episodes) that the August export omitted. The REA
 command used a positional argument `make_figures.py` does not accept, and its table command read a
 stale copy at `analysis/findings.json` (removed); both now point at the root `findings.json` and
 `repair_findings.json`. Every command in this README was rerun from a fresh clone after the fixes.
+
+The revised paper labels the two vLLM configurations BF16 rather than FP16: no `vllm serve` command in
+`harness/` (`pod_run_grid.sh`, `pod_run_grid_v2.sh`, `pod_vllm_lane.sh`, `pod_final_lane.sh`, `pod_phase2.sh`,
+`pod_phase3.sh`, `server_vllm.sh`) passes a dtype override, so the engine served the checkpoints in their native
+bfloat16.
+The result directories keep their original `vllm-*-fp16` names. The script's comment "KV cache dtype:
+default fp16" is kept as run; with no override the KV cache took the model dtype, bfloat16.
 
 ### Reproducing the revision numbers
 
