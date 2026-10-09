@@ -38,8 +38,8 @@ def fig_mechanism(rep, out: Path, cells=None):
         vals.append(v); errs.append([v - 100 * lo, 100 * hi - v])
     colors = [BLUE, BLUE, RED, GREY]
 
-    # drawn at the IEEE Access column width (3.5 in) so it prints at 1:1 with legible labels
-    fig, ax = plt.subplots(figsize=(3.5, 1.9))
+    # drawn at the IEEE Access column width (85.29 mm) so it prints at 1:1 with legible labels
+    fig, ax = plt.subplots(figsize=(85.29 / 25.4, 1.823))
     x = range(len(vals))
     ax.bar(x, vals, color=colors, width=0.6,
            yerr=[[e[0] for e in errs], [e[1] for e in errs]],
@@ -50,7 +50,8 @@ def fig_mechanism(rep, out: Path, cells=None):
     ax.set_xticklabels(labels, fontsize=6)
     ax.tick_params(axis="y", labelsize=7)
     ax.set_ylabel("episodes differing (%)", fontsize=8)
-    ax.set_ylim(0, 100)
+    ax.set_ylim(0, 105)          # headroom so the top value label clears the frame
+    ax.set_yticks([0, 20, 40, 60, 80, 100])
     ax.grid(axis="y", alpha=0.3)
     ax.set_axisbelow(True)
     fig.tight_layout()
