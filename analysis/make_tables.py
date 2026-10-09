@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 
 QUANT_ORDER = ["fp16", "f16", "q80", "q4km", "q3km", "awq", "int8"]
-QUANT_LABEL = {"fp16": "FP16", "f16": "F16", "q80": "Q8\\_0", "q4km": "Q4\\_K\\_M",
+QUANT_LABEL = {"fp16": "BF16", "f16": "F16", "q80": "Q8\\_0", "q4km": "Q4\\_K\\_M",
                "q3km": "Q3\\_K\\_M", "awq": "AWQ-INT4", "int8": "INT8"}
 BACKEND_LABEL = {"lcpp": "llama.cpp", "vllm": "vLLM", "sglang": "SGLang"}
 MODEL_LABEL = {"qwen7b": "Qwen2.5-7B", "llama8b": "Llama-3.1-8B",
@@ -128,7 +128,7 @@ by numeric comparison; the released artifact reproduces every value.}
 \toprule
 & & & \multicolumn{2}{c}{path determinism} & \multicolumn{2}{c}{path divergence} & flips & \multicolumn{2}{c}{correct} & McNemar \\
 \cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){9-10}
-Model & Weights & $n$ & cold & warm & \% & 95\% CI & (n) & cold & warm & $p$ \\
+Model & Weights & $n$ & recompute & cache hit & \% & 95\% CI & (n) & recompute & cache hit & $p$ \\
 \midrule
 """ + "\n".join(brows) + r"""
 \bottomrule

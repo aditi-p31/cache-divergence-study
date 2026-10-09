@@ -5,7 +5,8 @@ Cache-Induced Divergence in LLM Serving*
 ([arXiv:2609.04748](https://arxiv.org/abs/2609.04748), under review at IEEE Access).
 
 Author: Aditi Patodiya. Everything here is released so that each number in
-the paper can be recomputed from the raw logs, and so that the measurement
+the paper can be recomputed from the raw logs and the released telemetry
+summary (`results/cache_telemetry.json`), and so that the measurement
 can be repeated on other stacks.
 
 ## Cite this work
@@ -54,7 +55,7 @@ harness/
   server_*.sh         pinned launch scripts for llama.cpp, vLLM, SGLang
   pod_*.sh            orchestration used for the reported runs
 analysis/
-  analyze.py          raw logs -> findings.json (every reported number)
+  analyze.py          raw logs -> findings.json (original-grid numbers; revision scripts below)
   make_figures.py     findings.json -> paper figures
 results/
   <config>/<pass>/arm_<on|off>/
