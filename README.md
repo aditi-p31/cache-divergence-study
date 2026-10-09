@@ -72,10 +72,13 @@ VERSIONS.md           pinned versions, plan addenda, incident log
 ```
 uv sync        # installs the pinned environment from uv.lock (src/ holds only the stub that makes the project installable)
 uv run python analysis/analyze.py results -o findings.json
-uv run python analysis/make_figures.py findings.json -o figures
+uv run python analysis/analyze_repair.py --root results-repair -o repair_findings.json
+uv run python analysis/make_figures.py --findings findings.json --repair repair_findings.json -o figures
 ```
 
-`findings.json` is the single source of truth for the manuscript. No number
+`findings.json` and `repair_findings.json` at the repository root are the files the manuscript's
+original-grid numbers come from (the revision adds `analysis/revision_findings.json` and
+`analysis/phaseb_findings.json`). No number
 in the paper is computed anywhere else.
 
 ## Reproducing the data collection
@@ -288,6 +291,17 @@ fresh-server replicate. The validator before the change is kept as
 Logs: `results-revision/<block>/<cell>/arm_<on|off>/raw_requests.jsonl.gz`,
 with gate results in `results-revision/gates/`.
 
+### Fixes to the released scripts (9 October 2026)
+
+An independent check of the public repository found three defects in the August release, all fixed
+in this version: `analyze_repair.py` opened only uncompressed logs, so on the released (gzipped)
+data it exited successfully with empty comparison groups; it now reads either form, takes
+`--root` and `-o`, and writes `repair_findings.json` at the repository root, including the
+cache-off rerun entry (0 of 80 episodes) that the August export omitted. The README's figure
+command used a positional argument `make_figures.py` does not accept, and its table command read a
+stale copy at `analysis/findings.json` (removed); both now point at the root `findings.json` and
+`repair_findings.json`. Every command in this README was rerun from a fresh clone after the fixes.
+
 ### Reproducing the revision numbers
 
 ```
@@ -295,9 +309,9 @@ uv run python analysis/revision_stats.py --grid results --repair results-repair
 uv run python analysis/phaseb_stats.py --root results-revision --refs results-revision/references
 uv run python analysis/or_bootstrap.py --reps 2000    # optional, slow; see below
 uv run python analysis/make_phaseb_values.py
-uv run python analysis/make_tables.py analysis/findings.json
+uv run python analysis/make_tables.py findings.json -o tables
 uv run python analysis/make_phaseb_tables.py
-uv run python analysis/make_phaseb_figures.py
+uv run python analysis/make_phaseb_figures.py --findings findings.json
 uv run python analysis/test_revision_stats.py
 uv run python analysis/test_phaseb_stats.py
 uv run python revision/test_phaseb_tools.py

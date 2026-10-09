@@ -16,16 +16,31 @@ Plus the reset control summary, which asks whether the cached path is
 reproducible when cache state is restored to a known point.
 """
 
+import argparse
+import gzip
 import json
 import math
 from pathlib import Path
 
-ROOT = Path("results-repair")
+ap = argparse.ArgumentParser()
+ap.add_argument("--root", default="results-repair")
+ap.add_argument("-o", "--out", default="repair_findings.json")
+args = ap.parse_args()
+ROOT = Path(args.root)
+
+
+def resolve(p: Path):
+    """The released logs are gzipped; accept either form."""
+    if p.exists():
+        return p
+    gz = p.with_name(p.name + ".gz")
+    return gz if gz.exists() else None
 
 
 def load(p: Path) -> dict:
     by = {}
-    with open(p) as fh:
+    opener = gzip.open if p.suffix == ".gz" else open
+    with opener(p, "rt") as fh:
         for line in fh:
             r = json.loads(line)
             by.setdefault(r["episode_id"], []).append(r)
@@ -60,7 +75,8 @@ def wilson(k, n, z=1.96):
 
 
 def compare(p1: Path, p2: Path) -> dict | None:
-    if not p1.exists() or not p2.exists():
+    p1, p2 = resolve(p1), resolve(p2)
+    if p1 is None or p2 is None:
         return None
     d1, d2 = load(p1), load(p2)
     eps = sorted(set(d1) & set(d2))
@@ -83,6 +99,12 @@ for eng, cfgs in (("llamacpp", ("lcpp-orderA", "lcpp-orderB")),
                     ROOT / "repair" / cfg / "main" / "arm_off" / "raw_requests.jsonl")
         if r or x:
             out["ordering"][cfg] = {"engine": eng, "within_arm_on": r, "cross_arm": x}
+
+# --- cache-off re-run, measured rather than assumed ---
+off = compare(ROOT / "repair" / "lcpp-orderB" / "main" / "arm_off" / "raw_requests.jsonl",
+              ROOT / "repair" / "lcpp-orderB" / "repeat" / "arm_off" / "raw_requests.jsonl")
+if off:
+    out["cacheoff_rerun"] = off
 
 # --- cacheram isolation ---
 out["cacheram"] = {}
@@ -119,7 +141,7 @@ if rc.exists():
         "ci95_cached_reproducible": wilson(warm, n),
     }
 
-json.dump(out, open("analysis/repair_findings.json", "w"), indent=1)
+json.dump(out, open(args.out, "w"), indent=1)
 
 print("ORDERING (within-arm cache-on repeat)")
 for cfg, v in out["ordering"].items():
@@ -139,4 +161,4 @@ if r:
           f"{r['recompute_reproducible']}/{r['n']}, cached reproducible "
           f"{r['cached_reproducible']}/{r['n']}, cache effect "
           f"{r['cache_effect_within_generation']}/{r['n']}")
-print("\nwrote analysis/repair_findings.json")
+print(f"\nwrote {args.out}")

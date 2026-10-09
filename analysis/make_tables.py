@@ -68,7 +68,8 @@ def main():
 \caption{Episode-level divergence in the original grid (production-default
 configuration: llama.cpp's server-level prompt cache at its default; vLLM, which
 has no such layer, served both cache-enabled passes from one process; on llama.cpp a cache-disabled pass
-ran between the two cache-enabled passes, on vLLM they ran back to back). Each configuration ran
+ran between the two cache-enabled passes, except for Qwen2.5-14B, whose cache-enabled passes ran back to back as
+on vLLM). Each configuration ran
 the same 80-episode workload twice per arm on one server history, so each row is
 a single-history measurement; the replicated sweep of Table~\ref{tab:sweep}
 gives the between-history variation for the four Qwen2.5-7B formats under

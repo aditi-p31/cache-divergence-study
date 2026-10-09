@@ -85,6 +85,15 @@
    }
   }
  },
+ "cacheoff_rerun": {
+  "n": 80,
+  "n_diverged": 0,
+  "rate": 0.0,
+  "ci95": [
+   0,
+   0.0458
+  ]
+ },
  "cacheram": {
   "cacheram-zero": {
    "n": 80,
