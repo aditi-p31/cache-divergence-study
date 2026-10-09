@@ -1,0 +1,402 @@
+{
+ "multi_turn_base_9": {
+  "wall_s": 2.945341110229492,
+  "n_requests": 6,
+  "error": null
+ },
+ "multi_turn_base_22": {
+  "wall_s": 3.427095890045166,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_8": {
+  "wall_s": 4.5511956214904785,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_47": {
+  "wall_s": 2.905944585800171,
+  "n_requests": 6,
+  "error": null
+ },
+ "multi_turn_base_2": {
+  "wall_s": 5.0981550216674805,
+  "n_requests": 21,
+  "error": null
+ },
+ "multi_turn_base_39": {
+  "wall_s": 9.579535007476807,
+  "n_requests": 33,
+  "error": null
+ },
+ "multi_turn_base_28": {
+  "wall_s": 2.154022216796875,
+  "n_requests": 6,
+  "error": null
+ },
+ "multi_turn_base_63": {
+  "wall_s": 3.177788496017456,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_35": {
+  "wall_s": 2.576352119445801,
+  "n_requests": 7,
+  "error": null
+ },
+ "multi_turn_base_11": {
+  "wall_s": 1.5554618835449219,
+  "n_requests": 5,
+  "error": null
+ },
+ "multi_turn_base_16": {
+  "wall_s": 9.458345651626587,
+  "n_requests": 21,
+  "error": null
+ },
+ "multi_turn_base_4": {
+  "wall_s": 2.7315289974212646,
+  "n_requests": 6,
+  "error": null
+ },
+ "multi_turn_base_49": {
+  "wall_s": 2.7394049167633057,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_60": {
+  "wall_s": 5.163616895675659,
+  "n_requests": 16,
+  "error": null
+ },
+ "multi_turn_base_43": {
+  "wall_s": 2.6386754512786865,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_7": {
+  "wall_s": 4.290272951126099,
+  "n_requests": 21,
+  "error": null
+ },
+ "multi_turn_base_61": {
+  "wall_s": 6.9217236042022705,
+  "n_requests": 13,
+  "error": null
+ },
+ "multi_turn_base_12": {
+  "wall_s": 4.205565929412842,
+  "n_requests": 21,
+  "error": null
+ },
+ "multi_turn_base_41": {
+  "wall_s": 5.378041982650757,
+  "n_requests": 18,
+  "error": null
+ },
+ "multi_turn_base_69": {
+  "wall_s": 2.8205718994140625,
+  "n_requests": 6,
+  "error": null
+ },
+ "multi_turn_base_15": {
+  "wall_s": 6.157102108001709,
+  "n_requests": 13,
+  "error": null
+ },
+ "multi_turn_base_77": {
+  "wall_s": 2.5612995624542236,
+  "n_requests": 6,
+  "error": null
+ },
+ "multi_turn_base_33": {
+  "wall_s": 2.8012287616729736,
+  "n_requests": 10,
+  "error": null
+ },
+ "multi_turn_base_51": {
+  "wall_s": 2.7548704147338867,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_3": {
+  "wall_s": 1.5843491554260254,
+  "n_requests": 4,
+  "error": null
+ },
+ "multi_turn_base_18": {
+  "wall_s": 7.9830968379974365,
+  "n_requests": 22,
+  "error": null
+ },
+ "multi_turn_base_10": {
+  "wall_s": 3.054647207260132,
+  "n_requests": 10,
+  "error": null
+ },
+ "multi_turn_base_17": {
+  "wall_s": 2.1203033924102783,
+  "n_requests": 6,
+  "error": null
+ },
+ "multi_turn_base_75": {
+  "wall_s": 6.210888862609863,
+  "n_requests": 10,
+  "error": null
+ },
+ "multi_turn_base_78": {
+  "wall_s": 1.6942877769470215,
+  "n_requests": 4,
+  "error": null
+ },
+ "multi_turn_base_1": {
+  "wall_s": 2.2212302684783936,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_66": {
+  "wall_s": 4.348804950714111,
+  "n_requests": 15,
+  "error": null
+ },
+ "multi_turn_base_42": {
+  "wall_s": 6.216019153594971,
+  "n_requests": 21,
+  "error": null
+ },
+ "multi_turn_base_57": {
+  "wall_s": 2.222903251647949,
+  "n_requests": 3,
+  "error": null
+ },
+ "multi_turn_base_67": {
+  "wall_s": 2.425055742263794,
+  "n_requests": 6,
+  "error": null
+ },
+ "multi_turn_base_29": {
+  "wall_s": 2.0399155616760254,
+  "n_requests": 6,
+  "error": null
+ },
+ "multi_turn_base_25": {
+  "wall_s": 1.8041377067565918,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_70": {
+  "wall_s": 2.6700546741485596,
+  "n_requests": 12,
+  "error": null
+ },
+ "multi_turn_base_62": {
+  "wall_s": 7.223065376281738,
+  "n_requests": 21,
+  "error": null
+ },
+ "multi_turn_base_52": {
+  "wall_s": 3.8044347763061523,
+  "n_requests": 12,
+  "error": null
+ },
+ "multi_turn_base_31": {
+  "wall_s": 3.1192305088043213,
+  "n_requests": 4,
+  "error": null
+ },
+ "multi_turn_base_48": {
+  "wall_s": 2.410029649734497,
+  "n_requests": 7,
+  "error": null
+ },
+ "multi_turn_base_40": {
+  "wall_s": 2.263596773147583,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_21": {
+  "wall_s": 4.891601324081421,
+  "n_requests": 21,
+  "error": null
+ },
+ "multi_turn_base_6": {
+  "wall_s": 3.440410852432251,
+  "n_requests": 13,
+  "error": null
+ },
+ "multi_turn_base_72": {
+  "wall_s": 2.3632853031158447,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_38": {
+  "wall_s": 1.2267513275146484,
+  "n_requests": 5,
+  "error": null
+ },
+ "multi_turn_base_76": {
+  "wall_s": 2.6147360801696777,
+  "n_requests": 5,
+  "error": null
+ },
+ "multi_turn_base_50": {
+  "wall_s": 0.9618291854858398,
+  "n_requests": 2,
+  "error": null
+ },
+ "multi_turn_base_20": {
+  "wall_s": 5.187021017074585,
+  "n_requests": 21,
+  "error": null
+ },
+ "multi_turn_base_64": {
+  "wall_s": 1.729050636291504,
+  "n_requests": 6,
+  "error": null
+ },
+ "multi_turn_base_73": {
+  "wall_s": 1.757032871246338,
+  "n_requests": 7,
+  "error": null
+ },
+ "multi_turn_base_45": {
+  "wall_s": 1.8140308856964111,
+  "n_requests": 5,
+  "error": null
+ },
+ "multi_turn_base_34": {
+  "wall_s": 26.227633476257324,
+  "n_requests": 22,
+  "error": "BadRequestError(\"Error code: 400 - {'error': {'code': 400, 'message': 'request (16581 tokens) exceeds the available context size (16384 tokens), try increasing it', 'type': 'exceed_context_size_error', 'n_prompt_tokens': 16581, 'n_ctx': 16384}}\")"
+ },
+ "multi_turn_base_24": {
+  "wall_s": 7.546921014785767,
+  "n_requests": 22,
+  "error": null
+ },
+ "multi_turn_base_54": {
+  "wall_s": 4.762340307235718,
+  "n_requests": 10,
+  "error": null
+ },
+ "multi_turn_base_74": {
+  "wall_s": 1.859043836593628,
+  "n_requests": 4,
+  "error": null
+ },
+ "multi_turn_base_26": {
+  "wall_s": 2.3899896144866943,
+  "n_requests": 21,
+  "error": null
+ },
+ "multi_turn_base_58": {
+  "wall_s": 2.6931610107421875,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_53": {
+  "wall_s": 1.8774325847625732,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_27": {
+  "wall_s": 2.9167332649230957,
+  "n_requests": 21,
+  "error": null
+ },
+ "multi_turn_base_13": {
+  "wall_s": 1.7536218166351318,
+  "n_requests": 4,
+  "error": null
+ },
+ "multi_turn_base_19": {
+  "wall_s": 2.691122055053711,
+  "n_requests": 12,
+  "error": null
+ },
+ "multi_turn_base_37": {
+  "wall_s": 2.4837372303009033,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_30": {
+  "wall_s": 1.881927251815796,
+  "n_requests": 4,
+  "error": null
+ },
+ "multi_turn_base_56": {
+  "wall_s": 2.801499605178833,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_46": {
+  "wall_s": 1.1002423763275146,
+  "n_requests": 1,
+  "error": null
+ },
+ "multi_turn_base_0": {
+  "wall_s": 6.483694553375244,
+  "n_requests": 21,
+  "error": null
+ },
+ "multi_turn_base_65": {
+  "wall_s": 3.1988296508789062,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_55": {
+  "wall_s": 4.328200817108154,
+  "n_requests": 12,
+  "error": null
+ },
+ "multi_turn_base_44": {
+  "wall_s": 9.851983308792114,
+  "n_requests": 21,
+  "error": null
+ },
+ "multi_turn_base_59": {
+  "wall_s": 4.024076461791992,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_68": {
+  "wall_s": 3.383629083633423,
+  "n_requests": 10,
+  "error": null
+ },
+ "multi_turn_base_14": {
+  "wall_s": 2.847595691680908,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_32": {
+  "wall_s": 1.9697775840759277,
+  "n_requests": 4,
+  "error": null
+ },
+ "multi_turn_base_71": {
+  "wall_s": 2.670675754547119,
+  "n_requests": 12,
+  "error": null
+ },
+ "multi_turn_base_79": {
+  "wall_s": 1.9410269260406494,
+  "n_requests": 6,
+  "error": null
+ },
+ "multi_turn_base_5": {
+  "wall_s": 5.573651075363159,
+  "n_requests": 21,
+  "error": null
+ },
+ "multi_turn_base_23": {
+  "wall_s": 2.4738340377807617,
+  "n_requests": 8,
+  "error": null
+ },
+ "multi_turn_base_36": {
+  "wall_s": 1.4887826442718506,
+  "n_requests": 4,
+  "error": null
+ }
+}

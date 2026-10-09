@@ -22,27 +22,20 @@ import matplotlib.pyplot as plt
 BLUE, RED, GREY = "#2c7fb8", "#c0392b", "#7f8c8d"
 
 
-def fig_mechanism(rep, out: Path):
-    cr = rep["cacheram"]
-    reset = rep["reset_control_llamacpp"]
-    order = rep["ordering"]
-
-    off = order["lcpp-orderB"]["cross_arm"]  # placeholder, replaced below
-    off_rate = rep["cacheoff_rerun"]["rate"]
-    off_ci = rep["cacheoff_rerun"]["ci95"]
-    labels = ["cache off\n(re-run)", "cache on\n(re-run,\ncache-ram 0)",
-              "cache on\n(re-run,\ncache-ram default)", "cache on vs off\n(same run)"]
-    vals = [100 * off_rate,
-            100 * cr["cacheram-zero"]["rate"],
-            100 * cr["cacheram-default"]["rate"],
-            100 * order["lcpp-orderB"]["cross_arm"]["rate"]]
-    errs = [[100 * (off_rate - off_ci[0]), 100 * (off_ci[1] - off_rate)],
-            [100 * (cr["cacheram-zero"]["rate"] - cr["cacheram-zero"]["ci95"][0]),
-             100 * (cr["cacheram-zero"]["ci95"][1] - cr["cacheram-zero"]["rate"])],
-            [100 * (cr["cacheram-default"]["rate"] - cr["cacheram-default"]["ci95"][0]),
-             100 * (cr["cacheram-default"]["ci95"][1] - cr["cacheram-default"]["rate"])],
-            [100 * (order["lcpp-orderB"]["cross_arm"]["rate"] - order["lcpp-orderB"]["cross_arm"]["ci95"][0]),
-             100 * (order["lcpp-orderB"]["cross_arm"]["ci95"][1] - order["lcpp-orderB"]["cross_arm"]["rate"])]]
+def fig_mechanism(rep, out: Path, cells=None):
+    """Bars from the controlled runs; intervals are the envelope of the
+    circular block bootstrap and Wilson (revision_findings.json), or Wilson
+    alone for a zero count, where the bootstrap is degenerate."""
+    keys = ["fig1/cacheoff_rerun", "fig1/cacheon_rerun_promptcache_off",
+            "fig1/cacheon_rerun_promptcache_default", "fig1/cross_arm"]
+    labels = ["run-to-run,\ncache off", "run-to-run,\ncache on,\nprompt cache\ndisabled",
+              "run-to-run,\ncache on,\nprompt cache\ndefault", "path\ndivergence,\nprompt cache\ndisabled"]
+    vals, errs = [], []
+    for k in keys:
+        c = cells[k]
+        lo, hi = c.get("reported95") or c["wilson95"]
+        v = 100 * c["rate"]
+        vals.append(v); errs.append([v - 100 * lo, 100 * hi - v])
     colors = [BLUE, BLUE, RED, GREY]
 
     fig, ax = plt.subplots(figsize=(6.4, 3.3))
@@ -98,12 +91,14 @@ def main():
     ap.add_argument("-o", "--out", default="paper/figures")
     ap.add_argument("--findings", default="analysis/findings.json")
     ap.add_argument("--repair", default="analysis/repair_findings.json")
+    ap.add_argument("--revision", default="analysis/revision_findings.json")
     a = ap.parse_args()
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     f = json.load(open(a.findings))
     rep = json.load(open(a.repair))
-    fig_mechanism(rep, out)
+    cells = json.load(open(a.revision))["cells"]
+    fig_mechanism(rep, out, cells)
     fig_gradient(f, rep, out)
     print("figures written:")
     for p in sorted(out.glob("*.pdf")):

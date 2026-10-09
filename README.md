@@ -37,7 +37,9 @@ setting fixed.
 
 The design is paired and each configuration runs twice, so every arm can be
 compared against itself. The cache-disabled self-comparison is the internal
-validity check: it should be, and is, bit identical.
+validity check: in every llama.cpp configuration the repeated cache-disabled
+run reproduces every emitted token id and its log-probability (for vLLM,
+every token string and log-probability).
 
 ## Layout
 
@@ -68,7 +70,7 @@ VERSIONS.md           pinned versions, plan addenda, incident log
 ## Reproducing the numbers
 
 ```
-uv sync
+uv sync        # installs the pinned environment from uv.lock (src/ holds only the stub that makes the project installable)
 uv run python analysis/analyze.py results -o findings.json
 uv run python analysis/make_figures.py findings.json -o figures
 ```
@@ -85,8 +87,10 @@ bash harness/pod_setup.sh          # CUDA toolkit, llama.cpp build, venvs
 bash harness/pod_phase2.sh         # full grid, resumable, budget-capped
 ```
 
-Pinned versions are in `VERSIONS.md` and are load-bearing for this study.
-In particular llama.cpp is built from source at a fixed commit, and the vLLM
+Pinned versions are in `VERSIONS.md` and are required to reproduce the
+results, because the measured effects depend on the engine version and the
+cache configuration. In particular llama.cpp is built from source at a fixed
+commit, and the vLLM
 environment pins `vllm==0.11.0` with `torch 2.8.0+cu128` and
 `transformers<5`, because newer vLLM wheels require a CUDA 13 runtime that
 the driver on our hardware does not provide.
@@ -115,8 +119,10 @@ the driver on our hardware does not provide.
 
 ## License
 
-Code released under MIT. Raw logs released under CC BY 4.0. Benchmark data
-remains under its original license.
+Code is released under the MIT License (see `LICENSE`). The measurement
+dataset (`results/`, `results-repair/`, `results-revision/`, `findings.json`,
+`repair_findings.json` and the revision findings files) is released under
+CC BY 4.0. Benchmark data remains under its original license.
 
 ## Corrections applied after internal review (2026-08-16)
 
@@ -128,9 +134,11 @@ from the released files.
 collection-time scorer in `harness/run_gsm8k.py` accepted only the
 `#### <number>` form requested by the prompt. Models frequently answered
 correctly in another unambiguous form, most often `\boxed{...}`, and those
-responses were scored wrong. Between 11 and 38 percent of responses were
-affected, which inverted the apparent accuracy ordering across quantization
-levels. A second pass found that answers were also compared as strings, so
+responses were scored wrong. Between 11 and 38 percent of responses could
+not be parsed by the original extractor, and after both corrections below,
+between 13 and 37 percent of recompute-path responses changed from wrong to
+correct (the figure the paper reports). The defect inverted the apparent
+accuracy ordering across quantization levels. A second pass found that answers were also compared as strings, so
 `57.00` did not match a gold of `57`.
 
 Answers are re-derived offline from the stored response text by
@@ -155,8 +163,8 @@ between the two cache-on passes, while the Qwen-14B and vLLM configurations
 ran the cache-on passes adjacently. Ordering predicts the primary outcome
 (Mann-Whitney p = 0.033), so the engine comparison in the original grid is
 confounded with it. A repair run measures one llama.cpp and one vLLM
-configuration under both orderings; see `results/repair/` and the paper's
-methods section.
+configuration under both orderings; see `results-repair/repair/` and the
+paper's methods section.
 
 ## Verification notes
 
@@ -177,18 +185,139 @@ methods section.
   `comparison_level`.
 
 
-## Statistical checks added at submission
+## Statistical checks in the first submission (superseded)
 
-- `analysis/robustness.py` computes the moving-block bootstrap and the
-  position-dependence permutation test reported in the paper, and simulates
-  the power of the single-turn bridge. Output: `analysis/robustness.json`.
-- `analysis/trend_test.py` computes the Cochran-Armitage trend test across
-  weight formats from `findings.json`. Output: `analysis/trend_test.json`
-  (z = 5.68, p = 1.3e-8).
-- The submitted manuscript is on arXiv; the identifier will be added here on announcement.
+These scripts produced the statistics of the first submitted version. They are
+kept so that the revision's changes can be audited.
 
-## License
+- `analysis/robustness.py`: moving-block bootstrap, position-dependence
+  permutation test, and a power simulation for the single-turn bridge.
+  Output: `analysis/robustness.json`. The position-dependence test (quartile
+  counts and permutation p-values in Section IV-C) is still reported. The
+  moving-block bootstrap and the power simulation are replaced by the circular
+  block bootstrap, the problem-level bridge analysis and the clustered power
+  statement (`analysis/revision_stats.py`).
+- `analysis/trend_test.py`: Cochran-Armitage trend test across weight formats.
+  Output: `analysis/trend_test.json`. Replaced by paired trend models that
+  keep episode identity (`analysis/revision_stats.py`,
+  `analysis/phaseb_stats.py`).
 
-Code is released under the MIT License (see `LICENSE`). The measurement
-dataset (`results/`, `results-repair/`, `findings.json`,
-`repair_findings.json`) is released under CC BY 4.0.
+## Revision (2026-10): new runs and analyses
+
+The revised manuscript makes a replicated controlled sweep its primary
+evidence for the quantization result and replaces the interval and trend
+statistics. Everything in this section is new in the revision.
+
+### Reanalysis of the original data (no new inference)
+
+- `analysis/revision_stats.py` writes `analysis/revision_findings.json`.
+  Intervals for agentic proportions use a circular block bootstrap
+  (Politis and Romano), with the block length set per series by the
+  Politis-White rule with the Patton-Politis-White correction, floored at
+  five episodes; 10,000 replicates, seed 20261007. The reported interval is
+  the envelope of that interval and the Wilson interval. Trend across weight
+  formats uses models that keep episode identity: a random-intercept
+  logistic model fitted by adaptive Gauss-Hermite quadrature (100 nodes), a
+  conditional logistic regression fitted by conditional maximum likelihood
+  and an exact within-episode permutation test. In the replicated sweep the permutation test acts on each
+  episode's counts summed over histories (one format permutation per episode),
+  and the mixed model is fitted per history. The single-turn bridge is analysed at the problem level
+  (500 unique problems under 1,300 observations).
+- `analysis/test_revision_stats.py`: 18 tests, including block lengths
+  checked against the `arch` package (8.0.0).
+- `analysis/make_tables.py` and `analysis/make_figures.py` read their
+  intervals from `revision_findings.json`.
+
+### New runs
+
+Machine: one NVIDIA RTX 4090 (24 GB), driver 595.91.07, llama.cpp b10434
+(commit 7e4c0a9), the same model files as the original grid (SHA-256 in
+`SHA256SUMS`). Every pass runs on a freshly started server process with the
+server-level prompt cache disabled from launch (`--cache-ram 0`), except the
+production-default runs (B6, and one of the three latency modes in B5),
+which keep the default.
+
+| Block | What it measures |
+|---|---|
+| B0 | Gate: this machine reproduces the original Q4_K_M cache-off and cache-on passes in every token and log-probability, and requesting five log-probabilities instead of one leaves every token unchanged |
+| B1 | Controlled sweep: F16, Q8_0, Q4_K_M, Q3_K_M under the canonical episode order and ten randomized orders, formats in a Williams order within each history |
+| B1R | Fresh-process replicate of the canonical history |
+| B2 | Cache-off references for each format under two orders (history independence of the recompute path) |
+| B3 | Episode isolation: a sentinel prompt overwrites the cache before each episode, three orders per format |
+| B4 | Restored-state control: four formats, three sessions each, 100 items per session |
+| B5 | Single-stream latency and server restart time |
+| B6 | Production-default prompt cache under five randomized orders |
+| B7 | Q4_K_M weights dequantized to a 16-bit file and served on the F16 kernels |
+
+Randomized orders: `revision/orders/order_k.json`, generated by
+`numpy.random.default_rng([20261007, k]).permutation(80)`.
+
+Harness changes are opt-in, and the defaults reproduce the original runs
+byte for byte: `handler.py` reads the number of returned log-probabilities
+from `CDS_LOGPROBS` (default 1); `run_episodes.py` adds `--order-file` and
+`--sentinel-reset` and writes `run_meta.json`; `reset_control.py` adds
+`--logprobs`, `--start` and `--item-seed`.
+
+With five log-probabilities requested, llama.cpp computes the reported
+log-probabilities over the requested top entries in 32-bit floating point,
+so their last bits can differ from a one-log-probability run (largest
+difference observed 2.3e-4). Token ids and the top-1/top-2 logit margin are
+unaffected. Comparisons between runs with different log-probability depths
+therefore match tokens exactly and log-probabilities within 1e-3; runs at
+the same depth match exactly.
+
+Orchestration and validation: `revision/pod_phaseB.sh` (each pass is staged,
+validated and only then promoted), `revision/phaseb_tools.py` (record
+validation and run comparison; tests in `revision/test_phaseb_tools.py`).
+
+One validation rule changed during the run. Until 2026-10-08 04:15 UTC the
+validator rejected any pass in which an episode ended with an error. In the
+first random order of B6 (production-default prompt cache), episode 34 grew past
+the 16,384-token context and the server rejected its next request, identically
+in both passes. That is an outcome of the trajectory, not a fault, so the
+validator now lists such episodes (`context_overflow_episodes`) and still
+rejects every other error. No pass validated before the change contained such
+an episode, so no earlier verdict changes. The rejected first attempt is kept in
+`results-revision/_failed/`; it is identical to the accepted second attempt in
+every token and log-probability, and the analysis reports that comparison as a
+fresh-server replicate. The validator before the change is kept as
+`results-revision/diag/phaseb_tools_before_20261008T0415Z.py.txt`.
+Logs: `results-revision/<block>/<cell>/arm_<on|off>/raw_requests.jsonl.gz`,
+with gate results in `results-revision/gates/`.
+
+### Reproducing the revision numbers
+
+```
+uv run python analysis/revision_stats.py --grid results --repair results-repair
+uv run python analysis/phaseb_stats.py --root results-revision --refs results-revision/references
+uv run python analysis/or_bootstrap.py --reps 2000    # optional, slow; see below
+uv run python analysis/make_phaseb_values.py
+uv run python analysis/make_tables.py analysis/findings.json
+uv run python analysis/make_phaseb_tables.py
+uv run python analysis/make_phaseb_figures.py
+uv run python analysis/test_revision_stats.py
+uv run python analysis/test_phaseb_stats.py
+uv run python revision/test_phaseb_tools.py
+```
+
+The `make_*` scripts write the paper's tables and figures to `paper/tables/`,
+`tables/` and `figures/` (created if missing). Rerunning the two `*_stats.py`
+scripts from a fresh clone reproduces the committed `analysis/*_findings.json`
+byte for byte (verified 2026-10-09 with the locked environment).
+
+`analysis/or_bootstrap.py` computes the interval for the mixed-model odds
+ratio per format step by resampling episodes and histories together and
+refitting the model in every resampled history (2,000 replicates, seed
+20261007; about 0.3 s per fit, so it uses all cores and takes a while). Its
+result is committed as `analysis/phaseb_or_bootstrap.json` together with a
+fingerprint of the divergence tensor it was computed from. `phaseb_stats.py`
+includes that interval (`sweep.glmm_b1_two_way_bootstrap`) only when the
+fingerprint matches the tensor it has just built from the logs, so the
+committed file reproduces `phaseb_findings.json` exactly without rerunning
+the bootstrap; rerunning it regenerates the same numbers from the same seed.
+
+The first two commands rewrite `analysis/revision_findings.json` and
+`analysis/phaseb_findings.json`; both reproduce the shipped files exactly
+(apart from the input paths recorded in them). `make_phaseb_values.py` writes
+every number the manuscript quotes from the new runs as LaTeX macros, so no
+value in the text is typed by hand.

@@ -107,6 +107,10 @@ def main() -> None:
     ap.add_argument("--n", type=int, default=40)
     ap.add_argument("--max-tokens", type=int, default=1024)
     ap.add_argument("--out-dir", required=True)
+    ap.add_argument("--logprobs", type=int, default=1)
+    ap.add_argument("--start", type=int, default=0, help="first GSM8K test index")
+    ap.add_argument("--item-seed", type=int, default=None,
+                    help="if set, serve the items in a seeded random order")
     args = ap.parse_args()
 
     if args.mode == "restart" and not args.restart_cmd:
@@ -124,7 +128,13 @@ def main() -> None:
     ds = load_dataset("openai/gsm8k", "main", split="test")
 
     rows, violations, checked = [], 0, 0
-    for i in range(args.n):
+    idxs = list(range(args.start, args.start + args.n))
+    if args.item_seed is not None:
+        import random
+        random.Random(args.item_seed).shuffle(idxs)
+    json.dump({"items_in_order": idxs, "item_seed": args.item_seed, "logprobs": args.logprobs},
+              open(out / "run_meta.json", "w"), indent=1)
+    for i in idxs:
         item = ds[i]
         prompt = tok.apply_chat_template(
             [{"role": "system", "content": SYSTEM},
@@ -152,7 +162,7 @@ def main() -> None:
             t0 = time.time()
             resp = client.completions.create(
                 model=args.served_model, temperature=0.0, prompt=prompt,
-                max_tokens=args.max_tokens, logprobs=1,
+                max_tokens=args.max_tokens, logprobs=args.logprobs,
                 extra_body=extra, timeout=900)
             ct = cached_tokens_of(resp)
             cached[phase] = ct
@@ -182,16 +192,16 @@ def main() -> None:
             "cached_tokens": cached,
         })
 
-        if checked and violations / checked > MAX_VIOLATION_RATE and i >= 2:
+        if checked and violations / checked > MAX_VIOLATION_RATE and len(rows) >= 3:
             json.dump(rows, open(out / "summary_ABORTED.json", "w"), indent=1)
             sys.exit(
-                f"ABORT after {i+1} items: manipulation check failing "
+                f"ABORT after {len(rows)} items: manipulation check failing "
                 f"({violations}/{checked} requests). The cold/warm states are "
                 f"not what the protocol assumes, so any result would be "
                 f"meaningless. Inspect {raw_path} before rerunning.")
 
-        if (i + 1) % 10 == 0:
-            print(f"{i+1}/{args.n}: cold-repro "
+        if len(rows) % 10 == 0:
+            print(f"{len(rows)}/{args.n}: cold-repro "
                   f"{sum(r['cold_reproducible'] for r in rows)}, warm-repro "
                   f"{sum(r['warm_reproducible'] for r in rows)}, cache-effect "
                   f"{sum(r['cache_effect'] for r in rows)}, "

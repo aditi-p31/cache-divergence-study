@@ -35,40 +35,56 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("findings")
     ap.add_argument("-o", "--out", default="paper/tables")
+    ap.add_argument("--revision", default="analysis/revision_findings.json",
+                    help="dependence-aware intervals from revision_stats.py")
     args = ap.parse_args()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     f = json.load(open(args.findings))
+    rev = json.load(open(args.revision))["cells"]
 
     # ---- main determinism table ----
     rows = []
     for c in sorted(f["configs"], key=sort_key):
         b, m, q = parse(c["config"])
-        d_off = (c.get("determinism_off") or {}).get("rate")
-        d_on = (c.get("determinism_on") or {}).get("rate")
-        cross = (c.get("cross_arm_main") or {}).get("rate")
-        n = (c.get("cross_arm_main") or {}).get("n_episodes", 80)
-        ci = (c.get("determinism_on") or {}).get("ci95") or [None, None]
-        ci_s = (f"[{100*ci[0]:.1f}, {100*ci[1]:.1f}]"
-                if ci[0] is not None else "--")
+        name = c["config"]
+        off_c = rev[f"table1/{name}/cacheoff_rerun"]
+        on_c = rev[f"table1/{name}/cacheon_rerun"]
+        cr_c = rev[f"table1/{name}/cross_arm"]
+        # the revision cells recompute the published counts; refuse to print if they disagree
+        for key, cell in (("determinism_off", off_c), ("determinism_on", on_c), ("cross_arm_main", cr_c)):
+            pub = (c.get(key) or {}).get("rate")
+            if pub is not None and abs(pub - cell["rate"]) > 1e-9:
+                raise SystemExit(f"{name} {key}: findings {pub} != revision {cell['rate']}")
+        n = cr_c["n"]
+        ci = lambda cell: (f"[{100*cell['reported95'][0]:.1f}, {100*cell['reported95'][1]:.1f}]"
+                           if cell.get("reported95") else "--")
         rows.append(
             f"{BACKEND_LABEL.get(b, b)} & {MODEL_LABEL.get(m, m)} & "
-            f"{QUANT_LABEL.get(q, q)} & {n} & {pct(d_off)} & {pct(d_on)} & "
-            f"{ci_s} & {pct(cross)} \\\\")
+            f"{QUANT_LABEL.get(q, q)} & {n} & {pct(off_c['rate'])} & {pct(on_c['rate'])} & "
+            f"{ci(on_c)} & {pct(cr_c['rate'])} & {ci(cr_c)} \\\\")
 
     tab = r"""\begin{table*}[!t]
-\caption{Episode-level divergence. Each configuration ran the same 80-episode
-workload twice per arm. \emph{Cache off} and \emph{cache on} report the
-fraction of episodes whose trajectory changed when the same arm was repeated;
-\emph{cross-arm} compares the two arms. Every cache-off value is exactly zero,
-which bounds all other sources of nondeterminism under these conditions.}
+\caption{Episode-level divergence in the original grid (production-default
+configuration: llama.cpp's server-level prompt cache at its default; vLLM, which
+has no such layer, served both cache-enabled passes from one process; on llama.cpp a cache-disabled pass
+ran between the two cache-enabled passes, on vLLM they ran back to back). Each configuration ran
+the same 80-episode workload twice per arm on one server history, so each row is
+a single-history measurement; the replicated sweep of Table~\ref{tab:sweep}
+gives the between-history variation for the four Qwen2.5-7B formats under
+llama.cpp. Run-to-run divergence, for \emph{cache off} and \emph{cache on}, is the share
+of episodes whose trajectory changed when the same arm was repeated; path
+divergence compares the two arms. Every cache-off value is
+exactly zero. Intervals are the envelope of a circular block bootstrap and the
+Wilson interval (Section~\ref{sec:measures}); where serial dependence is weak
+the bootstrap is narrower and the Wilson bound is the one shown.}
 \label{tab:main}
 \centering
-\begin{tabular}{lllrrrcr}
+\begin{tabular}{lllrrrcrc}
 \toprule
-& & & & \multicolumn{3}{c}{re-run divergence (\%)} & cross-arm \\
-\cmidrule(lr){5-7}
-Engine & Model & Weights & $n$ & cache off & cache on & 95\% CI & (\%) \\
+& & & & \multicolumn{3}{c}{run-to-run divergence (\%)} & \multicolumn{2}{c}{path divergence (\%)} \\
+\cmidrule(lr){5-7}\cmidrule(lr){8-9}
+Engine & Model & Weights & $n$ & cache off & cache on & 95\% CI & rate & 95\% CI \\
 \midrule
 """ + "\n".join(rows) + r"""
 \bottomrule
@@ -102,14 +118,14 @@ Engine & Model & Weights & $n$ & cache off & cache on & 95\% CI & (\%) \\
 \caption{Single-turn bridge (GSM8K). Each item is served four times, twice on
 the recompute path and twice on the cache-hit path. Both paths are
 individually deterministic, yet they disagree with each other on a large
-fraction of items. Correctness flips occur in both directions. Answers are
-derived from the stored responses by numeric comparison; the released
-artifact reproduces every value.}
+fraction of items (path divergence, with 95\% Wilson intervals). Correctness
+flips occur in both directions. Answers are derived from the stored responses
+by numeric comparison; the released artifact reproduces every value.}
 \label{tab:bridge}
 \centering
 \begin{tabular}{llrccrcrrrr}
 \toprule
-& & & \multicolumn{2}{c}{path determinism} & \multicolumn{2}{c}{cross-path divergence} & flips & \multicolumn{2}{c}{correct} & McNemar \\
+& & & \multicolumn{2}{c}{path determinism} & \multicolumn{2}{c}{path divergence} & flips & \multicolumn{2}{c}{correct} & McNemar \\
 \cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){9-10}
 Model & Weights & $n$ & cold & warm & \% & 95\% CI & (n) & cold & warm & $p$ \\
 \midrule

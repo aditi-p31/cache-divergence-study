@@ -15,6 +15,7 @@ bfcl_eval unchanged, so results remain checker-compatible.
 
 import hashlib
 import json
+import os
 import time
 from pathlib import Path
 
@@ -85,7 +86,7 @@ class CacheArmMixin:
             temperature=self.temperature,
             prompt=formatted_prompt,
             max_tokens=leftover_tokens_count,
-            logprobs=1,
+            logprobs=int(os.environ.get("CDS_LOGPROBS", "1")),
             extra_body=extra_body,
             timeout=600,
         )

@@ -69,3 +69,21 @@
   via runpodctl on exit/budget-cap (21h hard cap), and the local watcher
   treats pod-unreachable as terminal. Revised projection: grid $14-18 of
   ~$19 remaining.
+
+## Revision collection (2026-10-07 to 2026-10-08, blocks B0 to B7)
+
+- GPU: one NVIDIA GeForce RTX 4090, 24564 MiB, driver 595.91.07, VBIOS
+  95.02.3C.00.EB; Linux kernel 6.8.0-138-generic (RunPod on-demand pod;
+  record in `results-revision/diag/env_gpu_revision_machine.txt`)
+- llama.cpp: the same release b10434, commit
+  7e4c0a96880dae4fc4268ad441f8a6446bd5460a, built from source with CUDA
+- Model files: identical to the original grid by SHA-256
+  (`results-revision/diag/SHA256SUMS`); the dequantized Q4_K_M to F16 file
+  used in B7 is listed in `results-revision/diag/SHA256SUMS.deq`
+- Harness environment: this repository's `pyproject.toml` and `uv.lock`; the
+  copies recorded on the pod differ only by an extra pin of pymupdf 1.28.2,
+  which no harness or analysis script imports. The harness files on the pod
+  were identical to `harness/`
+- Gate B0 (`results-revision/gates/G0a_*`, `G0b_*`): this machine reproduced
+  the original Q4_K_M cache-off and cache-on passes in every token and
+  log-probability before any new measurement was taken

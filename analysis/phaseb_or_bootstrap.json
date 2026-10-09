@@ -1,0 +1,28 @@
+{
+ "tensor_fingerprint": "9585c0787ad791ae",
+ "histories": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10
+ ],
+ "replicates": 2000,
+ "seed": 20261007,
+ "b1_mean_over_histories": 0.8334984532972971,
+ "b1_ci95_two_way": [
+  0.5647135826410339,
+  1.1473939381670524
+ ],
+ "or_per_step": 2.301355859318334,
+ "or_ci95_two_way": [
+  1.7589439184958242,
+  3.1499731789021452
+ ],
+ "unit": "episodes and histories resampled independently; GLMM refitted in every resampled history"
+}

@@ -1,0 +1,5 @@
+name, driver_version, memory.total [MiB], vbios_version
+NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB, 95.02.3C.00.EB
+6.8.0-138-generic
+7e4c0a96880dae4fc4268ad441f8a6446bd5460a
+b10434
