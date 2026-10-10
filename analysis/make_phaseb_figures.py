@@ -59,7 +59,7 @@ def fig_gradient(pb, f, out):
 
 def fig_margins(pb, out):
     mech = pb["mechanism_top5"]
-    fig, (a, b) = plt.subplots(1, 2, figsize=(7.0, 2.6))
+    fig, (a, b) = plt.subplots(1, 2, figsize=(7.0, 1.85))
     for i, fm in enumerate(FMTS):
         if fm not in mech:
             continue
