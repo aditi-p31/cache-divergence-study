@@ -78,7 +78,7 @@ llama.cpp, GSM8K test items 0 to 99: three independent server sessions per forma
 the recompute path, twice on the cache-hit path) with the cold state verified
 from server telemetry on every request. The sessions serve the same items in
 different orders. Counts are given per session; the last two columns count
-items whose tokens are identical in all three sessions.}
+items whose tokens are identical in all three sessions, out of 100.}
 \label{tab:reset}
 \centering
 \small

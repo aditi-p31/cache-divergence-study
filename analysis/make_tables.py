@@ -119,7 +119,7 @@ Engine & Model & Weights & $n$ & cache off & cache on & 95\% CI & rate & 95\% CI
 \caption{Single-turn bridge (GSM8K). Each item is served four times, twice on
 the recompute path and twice on the cache-hit path. Both paths are
 individually deterministic, yet they disagree with each other on a large
-fraction of items (path divergence, with 95\% Wilson intervals). Correctness
+fraction of items once quantized (path divergence, with 95\% Wilson intervals). Correctness
 flips occur in both directions. Answers are derived from the stored responses
 by numeric comparison; the released artifact reproduces every value.}
 \label{tab:bridge}
