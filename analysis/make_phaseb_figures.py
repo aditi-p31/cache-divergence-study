@@ -95,7 +95,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("-o", "--out", default="paper/figures")
     ap.add_argument("--phaseb", default="analysis/phaseb_findings.json")
-    ap.add_argument("--findings", default="analysis/findings.json")
+    ap.add_argument("--findings", default="findings.json")
     a = ap.parse_args()
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
     pb = json.load(open(a.phaseb)); f = json.load(open(a.findings))

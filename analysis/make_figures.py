@@ -92,8 +92,8 @@ def fig_gradient(f, rep, out: Path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("-o", "--out", default="paper/figures")
-    ap.add_argument("--findings", default="analysis/findings.json")
-    ap.add_argument("--repair", default="analysis/repair_findings.json")
+    ap.add_argument("--findings", default="findings.json")
+    ap.add_argument("--repair", default="repair_findings.json")
     ap.add_argument("--revision", default="analysis/revision_findings.json")
     a = ap.parse_args()
     out = Path(a.out)

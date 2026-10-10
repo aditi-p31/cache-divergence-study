@@ -346,7 +346,7 @@ uv run python revision/test_phaseb_tools.py
 ```
 
 The `make_*` scripts write the paper's tables and figures to `paper/tables/`,
-`tables/` and `figures/` (created if missing). Rerunning the two `*_stats.py`
+`tables/` and `paper/figures/` (created if missing). Rerunning the two `*_stats.py`
 scripts from a fresh clone reproduces the committed `analysis/*_findings.json`
 byte for byte (verified 2026-10-09 with the locked environment).
 
