@@ -1,13 +1,15 @@
-"""Cochran-Armitage trend test for the quantization gradient (Section V-D).
+"""Cochran-Armitage trend test for the quantization gradient, as reported in the
+August 2026 submission. The resubmission replaces it with the paired analyses in
+phaseb_stats.py and revision_stats.py; this script is kept for the record.
 
 Tests for a linear trend in cross-arm divergence across ordered weight
-formats, on the four Qwen2.5-7B llama.cpp cells of Table 1. Scores are
+formats, on the four Qwen2.5-7B llama.cpp cells of the original grid. Scores are
 equally spaced over the format ordering F16 < Q8_0 < Q4_K_M < Q3_K_M.
 
 Reads findings.json; writes trend_test.json.
 
 Usage:
-  uv run python analysis/trend_test.py analysis/findings.json -o analysis/trend_test.json
+  uv run python analysis/trend_test.py findings.json -o analysis/trend_test.json
 """
 
 import argparse

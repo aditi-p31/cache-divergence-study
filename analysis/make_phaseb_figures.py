@@ -1,6 +1,6 @@
 """Figures for the replicated controlled sweep (Phase B). Reads
 analysis/phaseb_findings.json and the production-default grid in
-analysis/findings.json.
+findings.json (repository root).
 
   fig_gradient_replicated  divergence by weight format: every history as a dot,
                            history-level mean with the two-way bootstrap

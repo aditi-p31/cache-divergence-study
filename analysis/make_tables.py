@@ -1,6 +1,6 @@
 """LaTeX tables for the manuscript, generated from findings.json only.
 
-Usage: uv run python analysis/make_tables.py analysis/findings.json -o paper/tables
+Usage: uv run python analysis/make_tables.py findings.json -o paper/tables
 """
 
 import argparse
