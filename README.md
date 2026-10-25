@@ -1,5 +1,7 @@
 # Cache divergence study: harness, data, and analysis
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23633820.svg)](https://doi.org/10.5281/zenodo.23633820)
+
 Artifact for the paper *Same Request, Different Answer: Quantization Amplifies
 Cache-Induced Divergence in LLM Serving*
 ([arXiv:2609.04748](https://arxiv.org/abs/2609.04748), under review at IEEE Access).
@@ -22,6 +24,22 @@ If you use this harness or the divergence dataset, please cite the paper:
   year    = {2026},
   doi     = {10.48550/arXiv.2609.04748},
   url     = {https://arxiv.org/abs/2609.04748}
+}
+```
+
+To cite the harness and data themselves, use the software DOI
+[10.5281/zenodo.23633820](https://doi.org/10.5281/zenodo.23633820), which covers all versions.
+The release cited in the paper (tag `resubmission-2026-10`, commit `bc0551d`) is
+[10.5281/zenodo.23633821](https://doi.org/10.5281/zenodo.23633821).
+
+```bibtex
+@software{patodiya2026cachedivergence,
+  title   = {cache-divergence-study: measurement harness and dataset for
+             prompt-cache divergence in LLM serving},
+  author  = {Patodiya, Aditi},
+  year    = {2026},
+  doi     = {10.5281/zenodo.23633820},
+  url     = {https://doi.org/10.5281/zenodo.23633820}
 }
 ```
 

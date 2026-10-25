@@ -7,6 +7,14 @@ authors:
     orcid: "https://orcid.org/0009-0002-3162-4863"
 repository-code: "https://github.com/aditi-p31/cache-divergence-study"
 license: MIT
+doi: 10.5281/zenodo.23633820
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23633820
+    description: "Software DOI, all versions (Zenodo)"
+  - type: doi
+    value: 10.5281/zenodo.23633821
+    description: "Release resubmission-2026-10, commit bc0551d (Zenodo)"
 preferred-citation:
   type: article
   title: "Same Request, Different Answer: Quantization Amplifies Cache-Induced Divergence in LLM Serving"
