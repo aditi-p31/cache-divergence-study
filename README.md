@@ -4,7 +4,7 @@
 
 Artifact for the paper *Same Request, Different Answer: Quantization Amplifies
 Cache-Induced Divergence in LLM Serving*
-([arXiv:2609.04748](https://arxiv.org/abs/2609.04748), under review at IEEE Access).
+([arXiv:2609.04748](https://arxiv.org/abs/2609.04748), accepted at IEEE Access).
 
 Author: Aditi Patodiya. Everything here is released so that each number in
 the paper can be recomputed from the raw logs and the released telemetry
@@ -21,6 +21,7 @@ If you use this harness or the divergence dataset, please cite the paper:
              Cache-Induced Divergence in LLM Serving},
   author  = {Patodiya, Aditi},
   journal = {arXiv preprint arXiv:2609.04748},
+  note    = {Accepted at IEEE Access},
   year    = {2026},
   doi     = {10.48550/arXiv.2609.04748},
   url     = {https://arxiv.org/abs/2609.04748}
