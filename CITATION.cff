@@ -22,14 +22,18 @@ preferred-citation:
     - family-names: Patodiya
       given-names: Aditi
       orcid: "https://orcid.org/0009-0002-3162-4863"
+  journal: "IEEE Access"
   year: 2026
-  month: 9
-  url: "https://arxiv.org/abs/2609.04748"
+  doi: 10.1109/ACCESS.2026.3749922
+  url: "https://doi.org/10.1109/ACCESS.2026.3749922"
   identifiers:
+    - type: doi
+      value: "10.1109/ACCESS.2026.3749922"
+      description: "IEEE Access article DOI"
     - type: other
       value: "arXiv:2609.04748"
       description: "arXiv identifier"
     - type: doi
       value: "10.48550/arXiv.2609.04748"
       description: "arXiv DOI"
-  notes: "Preprint, arXiv:2609.04748 [cs.SE]. Accepted at IEEE Access."
+  notes: "Early Access. Preprint: arXiv:2609.04748 [cs.SE]."
