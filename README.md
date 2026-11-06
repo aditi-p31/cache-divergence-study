@@ -47,6 +47,14 @@ The release cited in the paper (tag `resubmission-2026-10`, commit `bc0551d`) is
 GitHub's "Cite this repository" button (from `CITATION.cff`) emits the same
 citation in BibTeX and APA.
 
+## Check your own server
+
+[`cachecheck/`](cachecheck/) is a small tool that measures how often the
+prompt cache changes greedy answers on your own server. It is one file with
+no dependencies and works with llama.cpp, vLLM, SGLang and other
+OpenAI-compatible servers. A 20-probe run on a laptop takes about 15 minutes.
+See [`cachecheck/README.md`](cachecheck/README.md).
+
 ## What the study measures
 
 Serving stacks reuse the key-value tensors of a shared prompt prefix across
