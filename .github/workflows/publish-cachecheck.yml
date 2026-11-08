@@ -1,0 +1,45 @@
+# Publishes cachecheck/ to PyPI as llm-cachecheck when a tag cachecheck-v* is
+# pushed. Uses PyPI trusted publishing, so no token is stored anywhere.
+name: publish-cachecheck
+
+on:
+  push:
+    tags: ["cachecheck-v*"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Test
+        working-directory: cachecheck
+        run: python -m unittest test_cachecheck
+      - name: Check tag matches version
+        working-directory: cachecheck
+        run: |
+          v=$(python -c "import cachecheck; print(cachecheck.__version__)")
+          test "cachecheck-v$v" = "${GITHUB_REF_NAME}"
+      - name: Build
+        run: |
+          python -m pip install --upgrade build
+          python -m build cachecheck --outdir dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
