@@ -22,10 +22,12 @@ Two modes:
   --mode two-servers  vLLM, SGLang or another OpenAI-compatible stack:
                       --base-url serves with prefix caching on, and
                       --nocache-url serves the same model with it off
+                      (tested against a simulated server only)
 
 Standard library only. Python 3.8 or newer.
 
-Usage:
+Usage (from PyPI: pip install llm-cachecheck, then run llm-cachecheck
+in place of python cachecheck.py):
   python cachecheck.py --base-url http://127.0.0.1:8080
   python cachecheck.py --mode two-servers --base-url http://127.0.0.1:8000 \
       --nocache-url http://127.0.0.1:8001 --model Qwen/Qwen2.5-7B-Instruct
@@ -42,7 +44,7 @@ import sys
 import urllib.error
 import urllib.request
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 CITATION = (
     "Patodiya, A. Same Request, Different Answer: Quantization Amplifies "
@@ -319,7 +321,11 @@ def main(argv=None):
     ap.add_argument("--base-url", required=True,
                     help="server root, e.g. http://127.0.0.1:8080")
     ap.add_argument("--mode", choices=["llamacpp", "two-servers"],
-                    default="llamacpp")
+                    default="llamacpp",
+                    help="llamacpp (default): one llama.cpp server. "
+                         "two-servers: vLLM, SGLang or another OpenAI-"
+                         "compatible stack; tested against a simulated "
+                         "server only, not yet against a real one")
     ap.add_argument("--nocache-url",
                     help="two-servers mode: same model, prefix caching off")
     ap.add_argument("--model", default=None,
@@ -378,7 +384,7 @@ def main(argv=None):
                "probes_valid": len(valid), "probes_diverged": len(diverged),
                "inconclusive_reasons": reasons,
                "hit_check": "skipped" if args.skip_hit_check else "on"}
-    report = {"tool": "cachecheck " + __version__, "mode": args.mode,
+    report = {"tool": "llm-cachecheck " + __version__, "mode": args.mode,
               "base_url": args.base_url, "nocache_url": args.nocache_url,
               "model": args.model, "max_tokens": args.max_tokens,
               "seed": args.seed, "server_props": props,

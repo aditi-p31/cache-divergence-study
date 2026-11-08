@@ -1,11 +1,14 @@
-# cachecheck
+# llm-cachecheck
+
+On PyPI this tool is `llm-cachecheck`. The PyPI package named `cachecheck` is
+a different project.
 
 How often does the prompt cache change your server's answers?
 
 Serving stacks reuse the cached key-value state of a shared prompt prefix. A
 cache hit and a recomputation run different operations, so with greedy
 decoding a small numeric change can flip a token. After that the answer goes
-its own way. This is known behaviour: the llama.cpp server README says that
+its own way. This is known behavior: the llama.cpp server README says that
 `cache_prompt` "can cause nondeterministic results". What varies is how often
 it happens on your model, weights and build. `cachecheck` measures that.
 
@@ -24,7 +27,18 @@ Each path runs twice. A probe counts as valid only when all of these hold:
 
 ## Run it
 
-One file, Python 3.8 or newer, no dependencies. A full run sends 120 requests.
+Python 3.8 or newer, no dependencies. Install it from PyPI:
+
+```bash
+pip install llm-cachecheck
+llm-cachecheck --help
+```
+
+Or download the single file
+[`cachecheck.py`](https://github.com/aditi-p31/cache-divergence-study/blob/main/cachecheck/cachecheck.py)
+and run `python cachecheck.py` in place of `llm-cachecheck`. Both take the
+same options. A full run
+sends 120 requests.
 
 **llama.cpp.** The cache is switched per request. Start the server with one
 slot, because the default is several slots that share a cache. Turn the
@@ -32,7 +46,7 @@ host-memory prompt cache off to match the study's controlled runs:
 
 ```bash
 llama-server -m model.gguf -np 1 --cache-ram 0 --port 8080
-python cachecheck.py --base-url http://127.0.0.1:8080
+llm-cachecheck --base-url http://127.0.0.1:8080
 ```
 
 **vLLM, SGLang or another OpenAI-compatible server.** The cache is a server
@@ -44,12 +58,16 @@ vllm serve Qwen/Qwen2.5-7B-Instruct --port 8000 --gpu-memory-utilization 0.45 \
     --generation-config vllm --enable-prompt-tokens-details
 vllm serve Qwen/Qwen2.5-7B-Instruct --port 8001 --gpu-memory-utilization 0.45 \
     --generation-config vllm --enable-prompt-tokens-details --no-enable-prefix-caching
-python cachecheck.py --mode two-servers --base-url http://127.0.0.1:8000 \
+llm-cachecheck --mode two-servers --base-url http://127.0.0.1:8000 \
     --nocache-url http://127.0.0.1:8001 --model Qwen/Qwen2.5-7B-Instruct
 ```
 
 For SGLang, add `--enable-cache-report` to both servers and
 `--disable-radix-cache` to the second one.
+
+The two-server mode is covered by the unit tests against a simulated server.
+It has not yet been run against a real vLLM or SGLang server. If you run it,
+an [issue](https://github.com/aditi-p31/cache-divergence-study/issues) with what you saw is welcome.
 
 Two server processes can also differ for other reasons. To check that, start
 both with prefix caching off and run with `--skip-hit-check`. Every probe
@@ -81,8 +99,8 @@ probe 15/20: DIFFERENT (from character 376)
 
 All 20 probes were valid. On every probe the server reported that the cache
 hit covered all of turn 1 and its answer, and that the recompute path reused
-nothing. The full report is in
-[`examples/qwen2.5-3b-q4km_metal_b12138.json`](examples/qwen2.5-3b-q4km_metal_b12138.json).
+nothing. The full report (made with a pre-release build of 0.2.0) is in
+[`examples/qwen2.5-3b-q4km_metal_b12138.json`](https://github.com/aditi-p31/cache-divergence-study/blob/main/cachecheck/examples/qwen2.5-3b-q4km_metal_b12138.json).
 It took about 15 minutes on a laptop.
 
 | Exit status | Meaning |
@@ -113,7 +131,8 @@ the server's cache state as well as on the request.
 ## Background and citation
 
 `cachecheck` adapts the paired cache-on and cache-off design of the study in
-this repository. The study used Qwen2.5-7B-Instruct on llama.cpp with greedy
+[cache-divergence-study repository](https://github.com/aditi-p31/cache-divergence-study).
+The study used Qwen2.5-7B-Instruct on llama.cpp with greedy
 decoding, 80 BFCL multi-turn agent episodes and the host-memory prompt cache
 off. The share of episodes whose trajectory changed between a cache hit and a
 recomputation was 37.4% with F16 weights and 82.5% with Q4_K_M weights, as a
@@ -134,4 +153,4 @@ If `cachecheck` helps your work, please cite the paper:
 }
 ```
 
-MIT License, as for the rest of this repository.
+MIT License. See `LICENSE`.

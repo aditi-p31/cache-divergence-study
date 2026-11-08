@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "llm-cachecheck"
+dynamic = ["version"]
+description = "Measure how often the prompt cache changes greedy answers on your LLM server (llama.cpp, plus an experimental two-server mode for vLLM and SGLang)"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Aditi Patodiya" }]
+keywords = ["llm", "inference", "prefix caching", "kv cache", "prompt cache", "reproducibility", "nondeterminism", "llama.cpp", "vllm", "sglang"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Testing",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/aditi-p31/cache-divergence-study/tree/main/cachecheck"
+Source = "https://github.com/aditi-p31/cache-divergence-study"
+Paper = "https://doi.org/10.1109/ACCESS.2026.3749922"
+Preprint = "https://arxiv.org/abs/2609.04748"
+Issues = "https://github.com/aditi-p31/cache-divergence-study/issues"
+
+[project.scripts]
+llm-cachecheck = "llm_cachecheck:main"
+
+[tool.hatch.version]
+path = "cachecheck.py"
+
+# cachecheck.py stays a single runnable file in the repository. In the wheel
+# it becomes the module llm_cachecheck, so it cannot clash with the unrelated
+# "cachecheck" package on PyPI.
+[tool.hatch.build.targets.wheel]
+bypass-selection = true
+
+[tool.hatch.build.targets.wheel.force-include]
+"cachecheck.py" = "llm_cachecheck/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+include = ["cachecheck.py", "test_cachecheck.py", "README.md", "LICENSE", "pyproject.toml", "examples/"]
