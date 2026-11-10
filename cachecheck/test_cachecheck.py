@@ -162,6 +162,16 @@ class CacheCheckTests(unittest.TestCase):
         self.assertIn("DIFFERENT (from character", out)
         self.assertIn("3 of 3 valid probes gave a different", out)
 
+    def test_result_block_is_printed_and_safe_to_share(self):
+        server = self.server(diverge=True)
+        code, report, out = self.run_tool(server)
+        self.assertIn("---- llm-cachecheck result ----", out)
+        self.assertIn("engine build: b-fake", out)
+        self.assertIn("probes: 3 planned, 3 valid, 3 differed", out)
+        self.assertIn(cachecheck.SHARE_URL, out)
+        block = out.split("---- llm-cachecheck result ----")[1]
+        self.assertNotIn(server.url, block)
+
     def test_divergence_in_reasoning_only(self):
         code, report, out = self.run_tool(self.server(diverge_reasoning=True))
         self.assertEqual(code, 1)

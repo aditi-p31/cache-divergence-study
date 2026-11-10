@@ -128,6 +128,13 @@ your results:
 A difference is not a bug in your model. It shows that the answer depends on
 the server's cache state as well as on the request.
 
+## Share your result
+
+At the end of a run the tool prints a short result block. It leaves out your
+server URL and any key. If you would like to share it, open a
+[result issue](https://github.com/aditi-p31/cache-divergence-study/issues/new?template=cachecheck-result.yml)
+and paste the block. Results where no probe differed are just as useful.
+
 ## Background and citation
 
 `cachecheck` adapts the paired cache-on and cache-off design of the study in

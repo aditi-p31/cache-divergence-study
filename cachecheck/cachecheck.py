@@ -41,10 +41,11 @@ import binascii
 import json
 import os
 import sys
+import time
 import urllib.error
 import urllib.request
 
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 
 CITATION = (
     "Patodiya, A. Same Request, Different Answer: Quantization Amplifies "
@@ -53,6 +54,9 @@ CITATION = (
 )
 
 MIN_VALID_SHARE = 0.8
+
+SHARE_URL = ("https://github.com/aditi-p31/cache-divergence-study/issues/new"
+             "?template=cachecheck-result.yml")
 
 # Two-turn probes. Turn 1 asks for a worked answer of a few sentences, so
 # the server writes a useful amount of KV state while generating it.
@@ -305,6 +309,29 @@ def server_props(args):
             "model_file": os.path.basename(props.get("model_path") or "")}
 
 
+def result_block(args, props, summary, when):
+    """A short, copyable summary of the run. It leaves out the server URL
+    and any key, so it is safe to paste in public."""
+    build = props.get("build_info") or "(fill in engine and version)"
+    model = args.model or props.get("model_file") or "(fill in model)"
+    lines = [
+        "---- llm-cachecheck result ----",
+        "tool: llm-cachecheck %s" % __version__,
+        "date (UTC): %s" % when,
+        "mode: %s" % args.mode,
+        "engine build: %s" % build,
+        "model: %s" % model,
+        "GPU or CPU: (fill in)",
+        "probes: %d planned, %d valid, %d differed" % (
+            summary["probes_planned"], summary["probes_valid"],
+            summary["probes_diverged"]),
+        "max tokens: %d, seed: %d, hit check: %s" % (
+            args.max_tokens, args.seed, summary["hit_check"]),
+        "-------------------------------",
+    ]
+    return "\n".join(lines)
+
+
 def status_line(r):
     if not r["valid"]:
         return "inconclusive (%s)" % "; ".join(r["problems"])
@@ -414,6 +441,10 @@ def main(argv=None):
     if args.skip_hit_check:
         print("Cache hits were assumed, not confirmed (--skip-hit-check).")
     print("Report written to %s" % args.out)
+    print()
+    print(result_block(args, props, summary,
+                       time.strftime("%Y-%m-%d %H:%M", time.gmtime())))
+    print("To share this result (optional), open: " + SHARE_URL)
     print("Method: " + CITATION)
 
     if diverged:

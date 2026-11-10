@@ -1,0 +1,53 @@
+name: Share an llm-cachecheck result
+description: Post the result block that llm-cachecheck prints at the end of a run.
+title: "[result] "
+labels: ["cachecheck-result"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for running llm-cachecheck. Every result helps, including runs where no probe differed.
+        Paste the block the tool printed. It leaves out your server URL and any key.
+  - type: textarea
+    id: block
+    attributes:
+      label: Result block
+      description: The lines between "---- llm-cachecheck result ----" and the closing dashes.
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: engine
+    attributes:
+      label: Engine and version
+      placeholder: "llama.cpp b12236, vLLM 0.33.0, SGLang 0.5.x, ..."
+    validations:
+      required: true
+  - type: input
+    id: hardware
+    attributes:
+      label: GPU or CPU
+      placeholder: "RTX 4090, M2 Max (Metal), A100, CPU only, ..."
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Model and weight format
+      placeholder: "Qwen2.5-7B-Instruct Q4_K_M, Llama-3.1-8B BF16, ..."
+  - type: input
+    id: flags
+    attributes:
+      label: Server flags that touch caching or batching
+      placeholder: "-np 1 --cache-ram 0, --enable-prompt-tokens-details, ..."
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      description: Optional. What you were checking, or anything unusual about the setup.
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Permission
+      options:
+        - label: This result may be quoted or summarized publicly, with credit to my GitHub handle.
