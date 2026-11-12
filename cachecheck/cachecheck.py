@@ -22,7 +22,8 @@ Two modes:
   --mode two-servers  vLLM, SGLang or another OpenAI-compatible stack:
                       --base-url serves with prefix caching on, and
                       --nocache-url serves the same model with it off
-                      (tested against a simulated server only)
+                      (tested on real vLLM 0.33.0 and SGLang 0.5.23
+                      servers; results in the README)
 
 Standard library only. Python 3.8 or newer.
 
@@ -30,7 +31,7 @@ Usage (from PyPI: pip install llm-cachecheck, then run llm-cachecheck
 in place of python cachecheck.py):
   python cachecheck.py --base-url http://127.0.0.1:8080
   python cachecheck.py --mode two-servers --base-url http://127.0.0.1:8000 \
-      --nocache-url http://127.0.0.1:8001 --model Qwen/Qwen2.5-7B-Instruct
+      --nocache-url http://127.0.0.1:8100 --model Qwen/Qwen2.5-3B-Instruct
 
 Exit status: 0 no difference and at least 80% of probes valid, 1 at
 least one valid probe differs, 2 inconclusive.
@@ -45,7 +46,7 @@ import time
 import urllib.error
 import urllib.request
 
-__version__ = "0.2.2"
+__version__ = "0.2.3"
 
 CITATION = (
     "Patodiya, A. Same Request, Different Answer: Quantization Amplifies "
@@ -351,8 +352,8 @@ def main(argv=None):
                     default="llamacpp",
                     help="llamacpp (default): one llama.cpp server. "
                          "two-servers: vLLM, SGLang or another OpenAI-"
-                         "compatible stack; tested against a simulated "
-                         "server only, not yet against a real one")
+                         "compatible stack, with a second server that has "
+                         "prefix caching off")
     ap.add_argument("--nocache-url",
                     help="two-servers mode: same model, prefix caching off")
     ap.add_argument("--model", default=None,

@@ -74,7 +74,7 @@ The tool then reports the recompute path reusing cached tokens and marks every
 probe invalid, so check the server logs if that happens.
 
 Tested on real servers on 2026-11-11 and 11-12 (UTC; one RTX 4090; the tool's 20
-conversations; details in the [currency note](../CURRENCY_CHECK_2026-11.md)):
+conversations; details in the [currency note](https://github.com/aditi-p31/cache-divergence-study/blob/main/CURRENCY_CHECK_2026-11.md)):
 
 | Server | Model | Conversations with a different turn-2 answer | Both caches off |
 |---|---|---|---|

@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "llm-cachecheck"
 dynamic = ["version"]
-description = "Measure how often the prompt cache changes greedy answers on your LLM server (llama.cpp, plus an experimental two-server mode for vLLM and SGLang)"
+description = "Measure how often the prompt cache changes greedy answers on your LLM server (llama.cpp, vLLM and SGLang)"
 readme = "README.md"
 requires-python = ">=3.8"
 license = "MIT"
