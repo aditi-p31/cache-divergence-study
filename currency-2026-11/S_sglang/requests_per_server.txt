@@ -1,0 +1,4 @@
+cache: 160 chat requests
+nocache: 80 chat requests
+ctrl_a: 80 chat requests
+ctrl_b: 40 chat requests

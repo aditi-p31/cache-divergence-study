@@ -1,0 +1,26 @@
+C_MODEL=Qwen/Qwen2.5-3B-Instruct refs/main=aa8e72537993ba99e69dfaafa59ed015b17504d1
+total 0
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 LICENSE -> ../../blobs/ed317377ac0abff39f17eec693ce664f4b8152af
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 README.md -> ../../blobs/0b87f6362ee8ad33b2223afb47134264380f13fe
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 config.json -> ../../blobs/51b83fbd4e2d363b60235b9c8d494046a83c1cbf
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 generation_config.json -> ../../blobs/bf077f03dc569cfb8a90b3ec1ad20365a620bad6
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 merges.txt -> ../../blobs/20024bfe7c83998e9aeaf98a0cd6a2ce6306c2f0
+lrwxrwxrwx 1 root root 76 Nov 11 18:15 model-00001-of-00002.safetensors -> ../../blobs/67347b23fb4165b652eb6611f5e1f2a06dfcddba8e909df1b2b0b1857bee06c2
+lrwxrwxrwx 1 root root 76 Nov 11 18:15 model-00002-of-00002.safetensors -> ../../blobs/a40d941d0e7e0b966ad8b62bb6d6b7c88cce1299197b599d9d0a4ce59aabfc1d
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 model.safetensors.index.json -> ../../blobs/38047c6284a25427043f0ab040f623a2a20dd093
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 tokenizer.json -> ../../blobs/443909a61d429dff23010e5bddd28ff530edda00
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 tokenizer_config.json -> ../../blobs/07bfe0640cb5a0037f9322287fbfc682806cf672
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 vocab.json -> ../../blobs/4783fe10ac3adce15ac8f358ef5462739852c569
+ef52482bb785733093dc9a2e8edd8e764c77d12d8e9d8f10a80c9b547d32d0f9  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1/LICENSE
+2c74693e6ae36ba878124d465195b4dad0f71035b54ece1c9fd1553cc497ef8c  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1/README.md
+eed00b17e22553979d090fa492e587e92885e328914c8e0b0b78f0a0d3576b3b  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1/config.json
+ea35dfb6fc5051b01114f9b995820d55dab01ed33ee490f6378b442af82c09f9  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1/generation_config.json
+599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1/merges.txt
+67347b23fb4165b652eb6611f5e1f2a06dfcddba8e909df1b2b0b1857bee06c2  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1/model-00001-of-00002.safetensors
+a40d941d0e7e0b966ad8b62bb6d6b7c88cce1299197b599d9d0a4ce59aabfc1d  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1/model-00002-of-00002.safetensors
+bc8aaa0c87d4335177e01c765f1de0db81661c67c1a72fbfb0d521b09f5ddc56  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1/model.safetensors.index.json
+c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1/tokenizer.json
+5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1/tokenizer_config.json
+ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1/vocab.json
+snapshots after the arm:
+aa8e72537993ba99e69dfaafa59ed015b17504d1

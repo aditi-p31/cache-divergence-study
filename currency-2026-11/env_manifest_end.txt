@@ -1,0 +1,38 @@
+Wed Nov 11 23:49:28 UTC 2026
+LD_LIBRARY_PATH=
+== HF cache: the snapshot commit is in each path; LFS blob names are the file sha256
+/workspace/cc/hf/hub/models--Qwen--Qwen2.5-3B-Instruct refs/main=aa8e72537993ba99e69dfaafa59ed015b17504d1
+/workspace/cc/hf/hub/models--Qwen--Qwen2.5-7B-Instruct refs/main=a09a35458c702b33eeacc393d103063234e8bc28
+
+
+/workspace/cc/hf/hub/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1/:
+total 0
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 LICENSE -> ../../blobs/ed317377ac0abff39f17eec693ce664f4b8152af
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 README.md -> ../../blobs/0b87f6362ee8ad33b2223afb47134264380f13fe
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 config.json -> ../../blobs/51b83fbd4e2d363b60235b9c8d494046a83c1cbf
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 generation_config.json -> ../../blobs/bf077f03dc569cfb8a90b3ec1ad20365a620bad6
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 merges.txt -> ../../blobs/20024bfe7c83998e9aeaf98a0cd6a2ce6306c2f0
+lrwxrwxrwx 1 root root 76 Nov 11 18:15 model-00001-of-00002.safetensors -> ../../blobs/67347b23fb4165b652eb6611f5e1f2a06dfcddba8e909df1b2b0b1857bee06c2
+lrwxrwxrwx 1 root root 76 Nov 11 18:15 model-00002-of-00002.safetensors -> ../../blobs/a40d941d0e7e0b966ad8b62bb6d6b7c88cce1299197b599d9d0a4ce59aabfc1d
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 model.safetensors.index.json -> ../../blobs/38047c6284a25427043f0ab040f623a2a20dd093
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 tokenizer.json -> ../../blobs/443909a61d429dff23010e5bddd28ff530edda00
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 tokenizer_config.json -> ../../blobs/07bfe0640cb5a0037f9322287fbfc682806cf672
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 vocab.json -> ../../blobs/4783fe10ac3adce15ac8f358ef5462739852c569
+
+/workspace/cc/hf/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/:
+total 7
+lrwxrwxrwx 1 root root 52 Nov 11 17:39 LICENSE -> ../../blobs/6634c8cc3133b3848ec74b9f275acaaa1ea618ab
+lrwxrwxrwx 1 root root 52 Nov 11 17:39 README.md -> ../../blobs/4e9536cebaeb5cac673952ad5d0eeae469900f81
+lrwxrwxrwx 1 root root 52 Nov 11 17:39 config.json -> ../../blobs/0178295f88afc3c7f279ed284f961f8c1be00654
+lrwxrwxrwx 1 root root 52 Nov 11 17:39 generation_config.json -> ../../blobs/0eb3c536657dcd12626e09eca4b6198c0cbcde1e
+lrwxrwxrwx 1 root root 52 Nov 11 17:39 merges.txt -> ../../blobs/20024bfe7c83998e9aeaf98a0cd6a2ce6306c2f0
+lrwxrwxrwx 1 root root 76 Nov 11 18:10 model-00001-of-00004.safetensors -> ../../blobs/a1333e6293854747c481288ea83b348226af178dd565c49b6f9495ba1966aba7
+lrwxrwxrwx 1 root root 76 Nov 11 18:15 model-00002-of-00004.safetensors -> ../../blobs/f5d25a2772cb825164a2a2c0fb6d51a87e282abf21e4dd75bc5cfb3cd0ea6185
+lrwxrwxrwx 1 root root 76 Nov 11 18:15 model-00003-of-00004.safetensors -> ../../blobs/8efdec4c1bc12317ae1a38dc42b595ce777738a64deea3fcb8a0a91381bcdfd5
+lrwxrwxrwx 1 root root 76 Nov 11 17:42 model-00004-of-00004.safetensors -> ../../blobs/1a72d403cdf0c1ec3cb7f289f17b394a01e64394c2e9b3c0f94dbce3faf879bd
+lrwxrwxrwx 1 root root 52 Nov 11 17:39 model.safetensors.index.json -> ../../blobs/14d037fdda5a1311dcc0275003a7a370d84114e6
+lrwxrwxrwx 1 root root 52 Nov 11 17:39 tokenizer.json -> ../../blobs/443909a61d429dff23010e5bddd28ff530edda00
+lrwxrwxrwx 1 root root 52 Nov 11 17:39 tokenizer_config.json -> ../../blobs/07bfe0640cb5a0037f9322287fbfc682806cf672
+lrwxrwxrwx 1 root root 52 Nov 11 17:39 vocab.json -> ../../blobs/4783fe10ac3adce15ac8f358ef5462739852c569
+
+

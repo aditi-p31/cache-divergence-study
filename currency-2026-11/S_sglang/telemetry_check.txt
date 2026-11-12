@@ -1,0 +1,3 @@
+control_both_off.json: ok; turn-1 cached max 0; cache-path turn-2 cached min 0 max 0; recompute cached max 0; not reported 0
+run1.json: ok; turn-1 cached max 0; cache-path turn-2 cached min 106 max 315; recompute cached max 0; not reported 0
+run2.json: ok; turn-1 cached max 0; cache-path turn-2 cached min 106 max 315; recompute cached max 0; not reported 0

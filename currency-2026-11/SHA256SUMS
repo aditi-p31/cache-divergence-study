@@ -1,0 +1,6 @@
+65b8fcd92af6b4fefa935c625d1ac27ea29dcb6ee14589c55a8f115ceaaa1423  Qwen2.5-7B-Instruct-Q4_K_M.gguf
+863c978275bca3fdacdde06cbfc1a65f2bd65210bb7ecfd9ded3b24219d81b54  Qwen2.5-7B-Instruct-f16.gguf
+a1333e6293854747c481288ea83b348226af178dd565c49b6f9495ba1966aba7  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/model-00001-of-00004.safetensors
+f5d25a2772cb825164a2a2c0fb6d51a87e282abf21e4dd75bc5cfb3cd0ea6185  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/model-00002-of-00004.safetensors
+8efdec4c1bc12317ae1a38dc42b595ce777738a64deea3fcb8a0a91381bcdfd5  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/model-00003-of-00004.safetensors
+1a72d403cdf0c1ec3cb7f289f17b394a01e64394c2e9b3c0f94dbce3faf879bd  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/model-00004-of-00004.safetensors

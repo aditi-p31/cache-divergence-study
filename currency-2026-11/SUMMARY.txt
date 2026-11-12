@@ -1,0 +1,35 @@
+Passes with a valid marker:
+  ok A0_q4km_b10434/arm_off
+  ok A0_q4km_b10434/arm_on
+  ok A_f16/arm_off
+  ok A_f16/arm_on
+  ok A_f16_rep/arm_off
+  ok A_q4km/arm_off
+  ok A_q4km/arm_on
+  ok A_q4km_rep/arm_off
+  ok B_vllm/arm_off
+  ok B_vllm/arm_on
+  ok B_vllm_rep/arm_off
+  ok D_vllm_bi/arm_off
+  ok D_vllm_bi/arm_on
+Comparisons (episodes that differ):
+  A0_off_vs_paper            0 of 80
+  A0_on_vs_paper             0 of 80
+  A0_q4km_path               65 of 80
+  A_f16_offrepeat            0 of 80
+  A_f16_path                 36 of 80
+  A_q4km_offrepeat           0 of 80
+  A_q4km_path                58 of 80
+  B_vllm_offrepeat           0 of 80
+  B_vllm_path                48 of 80
+  D_bi_vs_default_off        52 of 80
+  D_vllm_bi_path             0 of 80
+llm-cachecheck runs:
+  C_llamacpp/run1.json           20 planned, 20 valid, 11 differed, inconclusive {}
+  C_llamacpp/run2.json           20 planned, 20 valid, 11 differed, inconclusive {}
+  C_vllm/control_both_off.json   20 planned, 20 valid, 0 differed, inconclusive {}
+  C_vllm/run1.json               20 planned, 0 valid, 0 differed, inconclusive {'recompute path reused 336 cached tokens': 6, 'recompute path did not repeat': 12, 'recompute path reused 320 cached tokens': 5, 'recompute path reused 304 cached tokens': 1, 'recompute path reused 208 cached tokens': 3, 'recompute path reused 288 cached tokens': 1, 'recompute path reused 224 cached tokens': 1, 'recompute path reused 176 cached tokens': 1, 'recompute path reused 112 cached tokens': 1, 'recompute path reused 272 cached tokens': 1}
+  C_vllm/run2.json               20 planned, 0 valid, 0 differed, inconclusive {'recompute path reused 336 cached tokens': 6, 'recompute path reused 320 cached tokens': 5, 'recompute path reused 304 cached tokens': 1, 'recompute path reused 208 cached tokens': 3, 'recompute path reused 288 cached tokens': 1, 'recompute path reused 224 cached tokens': 1, 'recompute path reused 176 cached tokens': 1, 'recompute path reused 112 cached tokens': 1, 'recompute path reused 272 cached tokens': 1}
+  C_vllm/run3.json               20 planned, 0 valid, 0 differed, inconclusive {'recompute path reused 336 cached tokens': 6, 'recompute path reused 320 cached tokens': 5, 'recompute path reused 304 cached tokens': 1, 'recompute path reused 208 cached tokens': 3, 'recompute path reused 288 cached tokens': 1, 'recompute path reused 224 cached tokens': 1, 'recompute path reused 176 cached tokens': 1, 'recompute path reused 112 cached tokens': 1, 'recompute path reused 272 cached tokens': 1}
+  C_vllm/run4.json               20 planned, 0 valid, 0 differed, inconclusive {'recompute path reused 336 cached tokens': 6, 'recompute path reused 320 cached tokens': 5, 'recompute path reused 304 cached tokens': 1, 'recompute path reused 208 cached tokens': 3, 'recompute path reused 288 cached tokens': 1, 'recompute path reused 224 cached tokens': 1, 'recompute path reused 176 cached tokens': 1, 'recompute path reused 112 cached tokens': 1, 'recompute path reused 272 cached tokens': 1}
+  C_vllm/run5.json               20 planned, 0 valid, 0 differed, inconclusive {'recompute path reused 336 cached tokens': 6, 'recompute path reused 320 cached tokens': 5, 'recompute path reused 304 cached tokens': 1, 'recompute path reused 208 cached tokens': 3, 'recompute path reused 288 cached tokens': 1, 'recompute path reused 224 cached tokens': 1, 'recompute path reused 176 cached tokens': 1, 'recompute path reused 112 cached tokens': 1, 'recompute path reused 272 cached tokens': 1}

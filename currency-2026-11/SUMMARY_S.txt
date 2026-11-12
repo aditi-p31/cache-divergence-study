@@ -1,0 +1,4 @@
+Arm S (SGLang) llm-cachecheck runs:
+  control_both_off.json  20 planned, 20 valid, 0 differed, inconclusive {}
+  run1.json              20 planned, 20 valid, 12 differed, inconclusive {}
+  run2.json              20 planned, 20 valid, 12 differed, inconclusive {}

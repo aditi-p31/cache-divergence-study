@@ -1,0 +1,250 @@
+Wed Nov 11 18:34:57 UTC 2026
+name, driver_version, memory.total [MiB], compute_cap, clocks.max.sm [MHz], power.limit [W]
+NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB, 8.9, 3105 MHz, 450.00 W
+CUDA Version: 13.2
+Build cuda_12.6.r12.6/compiler.35059454_0
+vCPUs 128
+/workspace/cc/llama-current/build/bin/llama-server
+version: 0.9.0-dev (build 1, commit cd959ba)
+built with GNU 13.3.0 for Linux x86_64
+/workspace/cc/llama-b10434/build/bin/llama-server
+version: 0.1.0-dev (build 1, commit 7e4c0a9)
+built with GNU 13.3.0 for Linux x86_64
+v0.9.0
+cd959bae99ff4bed22bef2604f45241c09bbb8c8
+vllm 0.33.0 torch 2.14.0+cu132 cuda 13.2 transformers 5.20.2
+Using Python 3.12.3 environment at: venv-vllm
+agent-detector==2.0.0
+aiohappyeyeballs==2.7.1
+aiohttp==3.14.5
+aiosignal==1.4.0
+annotated-doc==0.0.6
+annotated-types==0.8.0
+anthropic==2.8.0
+anyio==4.16.0
+apache-tvm-ffi==0.1.11
+astor==0.8.1
+attrs==26.1.0
+blake3==1.0.11
+cachetools==8.0.0
+cbor2==6.2.1
+certifi==2026.10.23
+cffi==2.1.1
+charset-normalizer==3.5.2
+click==8.5.1
+cloudpickle==3.1.2
+compressed-tensors==0.17.0
+cryptography==50.0.2
+cuda-bindings==13.5.0
+cuda-core==1.2.2
+cuda-pathfinder==1.8.6
+cuda-python==13.5.0
+cuda-tile==1.8.0
+cuda-toolkit==13.2.1
+depyf==0.20.0
+detect-installer==0.2.1
+dill==0.4.1
+dnspython==2.9.2
+docstring-parser==0.18.0
+einops==0.8.2
+email-validator==2.3.0
+fastapi==0.136.3
+fastapi-cli==0.0.33
+fastapi-cloud-cli==0.28.0
+fastar==0.12.0
+fastsafetensors==0.5.0
+filelock==4.2.10
+flashinfer-python==0.7.2.post1
+frozenlist==1.8.0
+fsspec==2026.9.0
+googleapis-common-protos==1.76.0
+grpcio==1.85.1
+h11==0.16.0
+hf-xet==1.8.0
+httpcore==1.0.9
+httpcore2==2.16.0
+httptools==0.9.0
+httpx==0.28.1
+httpx2==2.16.0
+huggingface-hub==2.4.0
+humming-kernels==0.1.19
+idna==3.20
+ijson==3.6.0
+instanttensor==0.2.3
+interegular==0.3.3
+jinja2==3.1.6
+jiter==0.19.0
+jmespath==1.1.0
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
+lark==1.2.2
+llguidance==1.7.6
+llvmlite==0.47.0
+lm-format-enforcer==0.11.3
+loguru==0.7.3
+markdown-it-py==4.3.0
+markupsafe==3.0.4
+mcp==2.3.0
+mcp-types==2.3.0
+mdurl==0.1.2
+mistral-common==1.13.1
+ml-dtypes==0.6.0
+model-hosting-container-standards==0.1.16
+mpmath==1.3.0
+msgspec==0.22.0
+multidict==7.2.1
+nccl-extensions==0.1.0
+nccl4py==0.6.0
+networkx==3.7
+ninja==1.13.2
+numba==0.65.0
+numpy==2.3.5
+nvidia-cublas==13.4.0.1
+nvidia-cuda-cccl==13.3.5.0.6
+nvidia-cuda-crt==13.5.37
+nvidia-cuda-cupti==13.2.75
+nvidia-cuda-nvcc==13.5.37
+nvidia-cuda-nvrtc==13.2.78
+nvidia-cuda-runtime==13.2.75
+nvidia-cudnn-cu13==9.24.0.43
+nvidia-cudnn-frontend==1.32.3
+nvidia-cufft==12.2.0.46
+nvidia-cufile==1.17.1.22
+nvidia-curand==10.4.2.55
+nvidia-cusolver==12.2.0.1
+nvidia-cusparse==12.7.10.1
+nvidia-cusparselt-cu13==0.8.1
+nvidia-cutlass-dsl==4.8.0
+nvidia-cutlass-dsl-libs-base==4.8.0
+nvidia-cutlass-dsl-libs-core==4.8.0
+nvidia-cutlass-dsl-libs-cu12==4.8.0
+nvidia-cutlass-dsl-libs-cu13==4.8.0
+nvidia-ml-py==13.615.71
+nvidia-nccl-cu13==2.30.7
+nvidia-nvjitlink==13.5.37
+nvidia-nvshmem-cu13==3.4.5
+nvidia-nvtx==13.2.75
+nvidia-nvvm==13.5.37
+nvtx==0.2.15
+openai==3.49.0
+opencv-python-headless==5.0.0.93
+opentelemetry-api==1.45.2
+opentelemetry-exporter-http-transport==0.66b2
+opentelemetry-exporter-otlp==1.45.2
+opentelemetry-exporter-otlp-common==0.66b2
+opentelemetry-exporter-otlp-proto-common==1.45.2
+opentelemetry-exporter-otlp-proto-grpc==1.45.2
+opentelemetry-exporter-otlp-proto-http==1.45.2
+opentelemetry-proto==1.45.2
+opentelemetry-sdk==1.45.2
+opentelemetry-semantic-conventions==0.66b2
+opentelemetry-semantic-conventions-ai==0.5.1
+orjson==3.13.0
+oss-harmony==0.0.12
+outlines-core==0.2.14
+packaging==26.3
+partial-json-parser==0.2.1.1.post7
+pillow==13.0.0
+prometheus-client==0.26.0
+prometheus-fastapi-instrumentator==8.1.0
+propcache==0.5.4
+protobuf==7.36.2
+psutil==7.2.2
+py-cpuinfo==9.0.0
+pybase64==1.5.2
+pycountry==26.2.16
+pycparser==3.12
+pydantic==2.14.3
+pydantic-core==2.50.4
+pydantic-extra-types==2.11.1
+pydantic-settings==2.16.2
+pygments==2.21.0
+pyjwt==2.15.1
+pynvvideocodec==2.0.4
+python-dotenv==1.2.4
+python-json-logger==4.2.0
+python-multipart==0.0.33
+pyyaml==6.0.3
+pyzmq==27.3.0
+quack-kernels==0.6.5
+referencing==0.37.0
+regex==2026.11.9
+requests==2.34.2
+rich==15.0.0
+rich-toolkit==0.20.6
+rignore==0.8.1
+rpds-py==2026.9.1
+safetensors==0.8.0
+sentencepiece==0.2.3
+sentry-sdk==2.74.0
+setproctitle==1.3.8
+setuptools==80.10.2
+shellingham==1.5.4
+six==1.17.0
+sniffio==1.3.1
+sse-starlette==3.7.0
+starlette==1.10.0
+supervisor==4.3.0
+sympy==1.14.0
+tabulate==0.10.0
+tiktoken==0.14.0
+tilelang==0.1.12
+tokenizers==0.23.3
+tokenspeed-mla==2.0.3
+tokenspeed-triton==3.9.10.post20261028
+torch==2.14.0+cu132
+torch-c-dlpack-ext==0.1.5
+torchaudio==2.11.0+cpu
+torchcodec==0.17.0+cu132
+torchvision==0.29.0+cu132
+tqdm==4.70.1
+transformers==5.20.2
+triton==3.8.0
+truststore==0.10.5
+typer==0.29.1
+typing-extensions==4.16.0
+typing-inspection==0.4.5
+urllib3==2.8.0
+uvicorn==0.54.0
+uvloop==0.23.0
+vllm==0.33.0
+watchfiles==1.3.0
+websockets==17.4
+xgrammar==0.2.8
+yarl==1.25.1
+z3-solver==4.15.4.0
+27f41fbc440ba11ba08076b2c02ac94e2ef10a9a9448f19ea07b1952ae671442  /workspace/cc/study/harness/compare_arms.py
+89f8f7e65644ec29631855d8137b9890c6e8397f4c26bec6e427864c86872932  /workspace/cc/study/harness/extract_cache_telemetry.py
+c8eb257b93cba7cf97cc3cfeee3b65e42719020e04f8da6e7e8eb2772223f4c2  /workspace/cc/study/harness/handler.py
+87d765f755ceb510e63f9565440f4f5990069756237e9805c1b359d4c3b48f78  /workspace/cc/study/harness/reset_control.py
+ae2557dc606e53f995a2ead661062e691be2516e3b6ad2a2fe87da9d4bd75675  /workspace/cc/study/harness/run_episodes.py
+2534f3fe58eea82a8a7b68f26c2208b0c4a14c9aad180711f307c4cce7bc642d  /workspace/cc/study/harness/run_gsm8k.py
+8cbb5bf1a4feb4452a29a974499608b8cf6dc066e871b0cc9c6a06d28e745117  /workspace/cc/study/harness/score_results.py
+06f783a26f3dbb1fa0ba59e73fd4bd7cc5b8e63e33680e3b731ea71f2d50d684  /workspace/cc/study/uv.lock
+c7df50caadffd33a318fb2f19a9524994e1d20a4823fb8dbf05688cd7a705585  /workspace/cc/tools/cachecheck.py
+26ff568ddc2a139383b650b557e01a8887410a0836d8ff0761f097585efa1b42  /workspace/cc/tools/phaseb_tools.py
+efd7cc0f2140e04ac652a0f7bc7119f6ea2bdddd7149ba950068f11134db354d  /workspace/cc/llama-current/build/bin/llama-server
+be51a5acb896b37362e3574e760b12634c90010ab5e62c02d41486fd396448d9  /workspace/cc/llama-b10434/build/bin/llama-server
+65b8fcd92af6b4fefa935c625d1ac27ea29dcb6ee14589c55a8f115ceaaa1423  Qwen2.5-7B-Instruct-Q4_K_M.gguf
+863c978275bca3fdacdde06cbfc1a65f2bd65210bb7ecfd9ded3b24219d81b54  Qwen2.5-7B-Instruct-f16.gguf
+a1333e6293854747c481288ea83b348226af178dd565c49b6f9495ba1966aba7  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/model-00001-of-00004.safetensors
+f5d25a2772cb825164a2a2c0fb6d51a87e282abf21e4dd75bc5cfb3cd0ea6185  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/model-00002-of-00004.safetensors
+8efdec4c1bc12317ae1a38dc42b595ce777738a64deea3fcb8a0a91381bcdfd5  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/model-00003-of-00004.safetensors
+1a72d403cdf0c1ec3cb7f289f17b394a01e64394c2e9b3c0f94dbce3faf879bd  /workspace/cc/hf/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/model-00004-of-00004.safetensors
+/workspace/cc/hf/hub:
+total 12763
+-rw-rw-rw- 1 root root     191 Nov 11 16:39 CACHEDIR.TAG
+drwxrwxrwx 7 root root 2063442 Nov 11 17:02 blobs
+lrwxrwxrwx 1 root root      42 Nov 11 18:13 models--Qwen--Qwen2.5-3B-Instruct -> /root/hf/models--Qwen--Qwen2.5-3B-Instruct
+drwxrwxrwx 7 root root 3001419 Nov 11 18:17 models--Qwen--Qwen2.5-7B-Instruct
+
+/workspace/cc/models:
+total 4573317
+-rw-rw-rw- 1 root root 4683074240 Nov 11 17:23 Qwen2.5-7B-Instruct-Q4_K_M.gguf
+lrwxrwxrwx 1 root root         41 Nov 11 18:12 Qwen2.5-7B-Instruct-f16.gguf -> /root/models/Qwen2.5-7B-Instruct-f16.gguf
+-rw-rw-rw- 1 root root       1013 Nov 11 18:16 SHA256SUMS
+/workspace/cc/hf/hub/models--Qwen--Qwen2.5-3B-Instruct refs/main: aa8e72537993ba99e69dfaafa59ed015b17504d1
+aa8e72537993ba99e69dfaafa59ed015b17504d1
+/workspace/cc/hf/hub/models--Qwen--Qwen2.5-7B-Instruct refs/main: a09a35458c702b33eeacc393d103063234e8bc28
+a09a35458c702b33eeacc393d103063234e8bc28
+vLLM servers run with VLLM_USE_FLASHINFER_SAMPLER=0 (see vllm_up)

@@ -1,0 +1,4 @@
+memory.used [MiB], memory.total [MiB]
+22383 MiB, 24564 MiB
+LISTEN 0      2048       127.0.0.1:8000       0.0.0.0:*    users:(("vllm",pid=43545,fd=23))           
+LISTEN 0      2048       127.0.0.1:8100       0.0.0.0:*    users:(("vllm",pid=44439,fd=23))           

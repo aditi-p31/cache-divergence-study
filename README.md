@@ -69,6 +69,15 @@ validity check: in every llama.cpp configuration the repeated cache-disabled
 run reproduces every emitted token id and its log-probability (for vLLM,
 every token string and log-probability).
 
+## Currency check (November 2026)
+
+The effect was rechecked on current releases on 2026-11-11 and 11-12 (UTC), one history on one
+RTX 4090: llama.cpp v0.9.0 changed 58 of 80 episodes at Q4_K_M and 36 at F16,
+and vLLM 0.33.0 changed 48 of 80; cache-off repeats were identical. The paper's
+build reproduced the paper's logs exactly on that machine. llm-cachecheck was
+also run on real vLLM and SGLang servers. See
+[CURRENCY_CHECK_2026-11.md](CURRENCY_CHECK_2026-11.md).
+
 ## Layout
 
 ```

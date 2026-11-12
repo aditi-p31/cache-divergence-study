@@ -1,0 +1,37 @@
+probe  1/20: same
+probe  2/20: same
+probe  3/20: same
+probe  4/20: same
+probe  5/20: same
+probe  6/20: same
+probe  7/20: same
+probe  8/20: same
+probe  9/20: same
+probe 10/20: same
+probe 11/20: same
+probe 12/20: same
+probe 13/20: same
+probe 14/20: same
+probe 15/20: same
+probe 16/20: same
+probe 17/20: same
+probe 18/20: same
+probe 19/20: same
+probe 20/20: same
+
+0 of 20 valid probes gave a different turn-2 answer on the cache path.
+Cache hits were assumed, not confirmed (--skip-hit-check).
+Report written to /workspace/cc/results/C2_vllm/control_both_off.json
+
+---- llm-cachecheck result ----
+tool: llm-cachecheck 0.2.2
+date (UTC): 2026-11-11 23:49
+mode: two-servers
+engine build: (fill in engine and version)
+model: Qwen/Qwen2.5-3B-Instruct
+GPU or CPU: (fill in)
+probes: 20 planned, 20 valid, 0 differed
+max tokens: 256, seed: 42, hit check: skipped
+-------------------------------
+To share this result (optional), open: https://github.com/aditi-p31/cache-divergence-study/issues/new?template=cachecheck-result.yml
+Method: Patodiya, A. Same Request, Different Answer: Quantization Amplifies Cache-Induced Divergence in LLM Serving. IEEE Access, 2026. doi:10.1109/ACCESS.2026.3749922

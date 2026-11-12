@@ -1,0 +1,13 @@
+C_MODEL=Qwen/Qwen2.5-3B-Instruct refs/main=aa8e72537993ba99e69dfaafa59ed015b17504d1
+total 0
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 LICENSE -> ../../blobs/ed317377ac0abff39f17eec693ce664f4b8152af
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 README.md -> ../../blobs/0b87f6362ee8ad33b2223afb47134264380f13fe
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 config.json -> ../../blobs/51b83fbd4e2d363b60235b9c8d494046a83c1cbf
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 generation_config.json -> ../../blobs/bf077f03dc569cfb8a90b3ec1ad20365a620bad6
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 merges.txt -> ../../blobs/20024bfe7c83998e9aeaf98a0cd6a2ce6306c2f0
+lrwxrwxrwx 1 root root 76 Nov 11 18:15 model-00001-of-00002.safetensors -> ../../blobs/67347b23fb4165b652eb6611f5e1f2a06dfcddba8e909df1b2b0b1857bee06c2
+lrwxrwxrwx 1 root root 76 Nov 11 18:15 model-00002-of-00002.safetensors -> ../../blobs/a40d941d0e7e0b966ad8b62bb6d6b7c88cce1299197b599d9d0a4ce59aabfc1d
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 model.safetensors.index.json -> ../../blobs/38047c6284a25427043f0ab040f623a2a20dd093
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 tokenizer.json -> ../../blobs/443909a61d429dff23010e5bddd28ff530edda00
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 tokenizer_config.json -> ../../blobs/07bfe0640cb5a0037f9322287fbfc682806cf672
+lrwxrwxrwx 1 root root 52 Nov 11 18:15 vocab.json -> ../../blobs/4783fe10ac3adce15ac8f358ef5462739852c569

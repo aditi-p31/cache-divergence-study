@@ -1,0 +1,4 @@
+C2_cache: 400 chat requests
+C2_nocache: 200 chat requests
+C2_ctrl_a: 80 chat requests
+C2_ctrl_b: 40 chat requests

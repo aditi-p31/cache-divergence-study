@@ -51,23 +51,38 @@ llm-cachecheck --base-url http://127.0.0.1:8080
 
 **vLLM, SGLang or another OpenAI-compatible server.** The cache is a server
 setting, so serve the same model twice, once with prefix caching on and once
-with it off. Both servers must report cached tokens. For vLLM on one GPU:
+with it off. Both servers must report cached tokens. For vLLM on one 24 GB GPU
+(a 3B model, so two copies fit):
 
 ```bash
-vllm serve Qwen/Qwen2.5-7B-Instruct --port 8000 --gpu-memory-utilization 0.45 \
+vllm serve Qwen/Qwen2.5-3B-Instruct --port 8000 --gpu-memory-utilization 0.45 \
     --generation-config vllm --enable-prompt-tokens-details
-vllm serve Qwen/Qwen2.5-7B-Instruct --port 8001 --gpu-memory-utilization 0.45 \
+vllm serve Qwen/Qwen2.5-3B-Instruct --port 8100 --gpu-memory-utilization 0.45 \
     --generation-config vllm --enable-prompt-tokens-details --no-enable-prefix-caching
 llm-cachecheck --mode two-servers --base-url http://127.0.0.1:8000 \
-    --nocache-url http://127.0.0.1:8001 --model Qwen/Qwen2.5-7B-Instruct
+    --nocache-url http://127.0.0.1:8100 --model Qwen/Qwen2.5-3B-Instruct
 ```
 
-For SGLang, add `--enable-cache-report` to both servers and
-`--disable-radix-cache` to the second one.
+For SGLang, add `--enable-cache-report` and `--sampling-defaults openai` to
+both servers, and `--disable-radix-cache` to the second one.
 
-The two-server mode is covered by the unit tests against a simulated server.
-It has not yet been run against a real vLLM or SGLang server. If you run it,
-an [issue](https://github.com/aditi-p31/cache-divergence-study/issues) with what you saw is welcome.
+Make sure each server really started on its own port. If another process
+already holds a port, it can answer for it: RunPod's standard images, for
+example, run an nginx proxy on port 8001 that forwards to port 8000, so both
+URLs would reach the same server.
+The tool then reports the recompute path reusing cached tokens and marks every
+probe invalid, so check the server logs if that happens.
+
+Tested on real servers on 2026-11-11 and 11-12 (UTC; one RTX 4090; the tool's 20
+conversations; details in the [currency note](../CURRENCY_CHECK_2026-11.md)):
+
+| Server | Model | Conversations with a different turn-2 answer | Both caches off |
+|---|---|---|---|
+| vLLM 0.33.0, two servers | Qwen2.5-3B-Instruct, BF16 | 14 of 20, in each of 5 runs | 0 of 20 |
+| SGLang 0.5.23, two servers (CUDA graphs disabled) | Qwen2.5-3B-Instruct, BF16 | 12 of 20, in each of 2 runs | 0 of 20 |
+| llama.cpp v0.9.0 | Qwen2.5-7B-Instruct, Q4_K_M | 11 of 20, in each of 2 runs | |
+
+If you run it, an [issue](https://github.com/aditi-p31/cache-divergence-study/issues) with what you saw is welcome.
 
 Two server processes can also differ for other reasons. To check that, start
 both with prefix caching off and run with `--skip-hit-check`. Every probe
