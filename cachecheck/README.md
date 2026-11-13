@@ -22,7 +22,8 @@ second answer on two paths:
 Each path runs twice. A probe counts as valid only when all of these hold:
 
 - both paths repeat on their own
-- the server's own counts show that the cache hit covered the turn-1 answer
+- the server's own counts show that the cache hit covered the turn-1 answer,
+  to within `--hit-tolerance` tokens and at least past the turn-1 prompt
 - the server's own counts show that the recompute path reused nothing
 
 ## Run it
@@ -37,8 +38,8 @@ llm-cachecheck --help
 Or download the single file
 [`cachecheck.py`](https://github.com/aditi-p31/cache-divergence-study/blob/main/cachecheck/cachecheck.py)
 and run `python cachecheck.py` in place of `llm-cachecheck`. Both take the
-same options. A full run
-sends 120 requests.
+same options. Each conversation takes six requests, so a run of the 20
+built-in conversations sends 120.
 
 **llama.cpp.** The cache is switched per request. Start the server with one
 slot, because the default is several slots that share a cache. Turn the
@@ -49,10 +50,44 @@ llama-server -m model.gguf -np 1 --cache-ram 0 --port 8080
 llm-cachecheck --base-url http://127.0.0.1:8080
 ```
 
-**vLLM, SGLang or another OpenAI-compatible server.** The cache is a server
-setting, so serve the same model twice, once with prefix caching on and once
-with it off. Both servers must report cached tokens. For vLLM on one 24 GB GPU
-(a 3B model, so two copies fit):
+**vLLM or SGLang, one server.** Start the server with prefix caching on (the
+default) and with cached-token reporting on. The tool sends every request with
+a `cache_salt`. The two turns of the cache path share one salt, so turn 2
+reuses the state of turn 1. Each recompute request gets a salt that no other
+request has used, so it cannot reuse any cached state.
+
+```bash
+vllm serve Qwen/Qwen2.5-3B-Instruct --port 8000 \
+    --generation-config vllm --enable-prompt-tokens-details
+llm-cachecheck --mode one-server --base-url http://127.0.0.1:8000 \
+    --model Qwen/Qwen2.5-3B-Instruct
+```
+
+For SGLang, add `--enable-cache-report` and `--sampling-defaults openai`.
+<<FILL: one-server validation sentence>>
+
+The server must honour `cache_salt`. If it does not, the recompute requests
+reuse cached state, the tool marks those probes as inconclusive and says so,
+and the two-server setup below still works. The server must also report cached
+tokens, so `--skip-hit-check` is not available in this mode.
+
+This mode compares a cache hit with a cache miss on one server. From reading
+the vLLM 0.33.0 and SGLang 0.5.23 source, a miss on a standard attention model,
+served without a KV connector such as LMCache, takes the same code path as on a
+server with prefix caching off. For some setups, for example models with Mamba
+or sliding-window layers, or speculative decoding, turning prefix caching on
+also changes how the server handles requests that miss. To compare with
+caching off there, use two servers.
+
+Run it on a server that gets no other traffic, such as a staging copy. On a
+busy server, batching with other requests can change answers by itself. The
+tool's repeat checks mark many such probes as inconclusive, but they cannot
+rule out a difference caused by other traffic.
+
+**vLLM, SGLang or another OpenAI-compatible server, two servers.** The cache
+is a server setting, so serve the same model twice, once with prefix caching
+on and once with it off. Both servers must report cached tokens. For vLLM on
+one 24 GB GPU (a 3B model, so two copies fit):
 
 ```bash
 vllm serve Qwen/Qwen2.5-3B-Instruct --port 8000 --gpu-memory-utilization 0.45 \
@@ -73,6 +108,7 @@ URLs would reach the same server.
 The tool then reports the recompute path reusing cached tokens and marks every
 probe invalid, so check the server logs if that happens.
 
+<<FILL: table lead-in naming both test sessions, prepared in the GPU runbook>>
 Tested on real servers on 2026-11-11 and 11-12 (UTC; one RTX 4090; the tool's 20
 conversations; details in the [currency note](https://github.com/aditi-p31/cache-divergence-study/blob/main/CURRENCY_CHECK_2026-11.md)):
 
@@ -81,6 +117,7 @@ conversations; details in the [currency note](https://github.com/aditi-p31/cache
 | vLLM 0.33.0, two servers | Qwen2.5-3B-Instruct, BF16 | 14 of 20, in each of 5 runs | 0 of 20 |
 | SGLang 0.5.23, two servers (CUDA graphs disabled) | Qwen2.5-3B-Instruct, BF16 | 12 of 20, in each of 2 runs | 0 of 20 |
 | llama.cpp v0.9.0 | Qwen2.5-7B-Instruct, Q4_K_M | 11 of 20, in each of 2 runs | |
+<<FILL: one-server table rows>>
 
 If you run it, an [issue](https://github.com/aditi-p31/cache-divergence-study/issues) with what you saw is welcome.
 
@@ -88,12 +125,54 @@ Two server processes can also differ for other reasons. To check that, start
 both with prefix caching off and run with `--skip-hit-check`. Every probe
 should come out the same.
 
-Options: `--n` sets the number of probes (default 20), `--max-tokens` the
-answer length (default 256), `--out` the JSON report path.
+Options: `--probes` reads your own conversations (next section), `--n` sets
+the number of probes (default: all), `--max-tokens` the answer length
+(default 256), `--out` the JSON report path. If your server caches in blocks or
+pages larger than 32 tokens, set `--hit-tolerance` to that size, or cache hits
+can look too short. With large pages, also ask for longer turn-1 answers, so
+the hit can reach past the prompt.
 
 Models that think before answering need thinking turned off for this check.
 Their templates often drop past thinking from the history, which shortens the
 cache hit, and the tool marks those probes as inconclusive.
+
+## Run it on your own conversations
+
+The built-in conversations are short and generic. To check the kind of
+prompts your application sends, put your own in a JSON Lines file, one
+conversation per line, and pass it with `--probes`:
+
+```bash
+llm-cachecheck --base-url http://127.0.0.1:8080 --probes my_conversations.jsonl
+```
+
+Each line has one of two forms
+([example file](https://github.com/aditi-p31/cache-divergence-study/blob/main/cachecheck/examples/conversations_example.jsonl)):
+
+```json
+{"id": "returns-1", "turn1": "A customer wants to return shoes bought 40 days ago. ...", "turn2": "Rewrite the reply so it offers store credit instead."}
+{"id": "sql-1", "messages": [{"role": "system", "content": "You are a careful SQL assistant."}, {"role": "user", "content": "Write a query for the ten largest orders."}], "followup": "Change it so it only counts orders created in 2025."}
+```
+
+- `turn1` is the first user message and `turn2` the follow-up.
+- In the longer form, `messages` is the conversation up to and including the
+  turn-1 user message, so it can carry your system prompt and earlier turns.
+  `followup` is the turn-2 user message.
+- `id` is optional and is copied into the report.
+- Text messages only, with the roles system, developer, user and assistant.
+  Tool calls and images are not supported.
+
+The tool generates the turn-1 answer itself and builds turn 2 on it, as with
+the built-in conversations, and it always decodes greedily. A file that holds
+one JSON array of these objects also works.
+
+Let turn 1 ask for an answer of a few sentences. The tool counts a cache hit
+only when it reaches past the turn-1 prompt into the answer. A server that
+caches in blocks (vLLM uses 16 tokens by default) can stop the hit at the
+prompt when the answer is short, and the probe is then inconclusive.
+
+The JSON report saves every answer, so keep it private if your conversations
+are. The printed result block holds counts only, with no conversation text.
 
 ## Reading the result
 
@@ -123,6 +202,9 @@ It took about 15 minutes on a laptop.
 | 0 | No valid probe differed, and at least 80% of probes were valid |
 | 1 | At least one valid probe differed |
 | 2 | Inconclusive: too few valid probes, or a request failed |
+
+A usage error (a bad or conflicting option) also exits with status 2, before
+any request is sent and without writing a report.
 
 The JSON report keeps every answer, the finish reasons, token counts, cached
 token counts and the server build.

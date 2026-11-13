@@ -10,28 +10,40 @@ greedy decoding and compares the second answer on two paths:
 
 Each path runs twice. A probe counts only when both paths repeat, the
 server's own telemetry confirms that the cache hit covered the turn-1
-answer, and the recompute path reused nothing. The method adapts the
+answer (to within --hit-tolerance tokens, and at least past the turn-1
+prompt), and the recompute path reused nothing. The method adapts the
 paired design of Patodiya, "Same Request, Different Answer: Quantization
 Amplifies Cache-Induced Divergence in LLM Serving" (IEEE Access, 2026,
 doi:10.1109/ACCESS.2026.3749922; arXiv:2609.04748).
 
-Two modes:
+Three modes:
 
   --mode llamacpp     one llama.cpp server; the cache is switched per
                       request with "cache_prompt" (start it with -np 1)
+  --mode one-server   one vLLM or SGLang server with prefix caching on;
+                      the recompute path sends each request with a fresh
+                      "cache_salt", so it cannot reuse any cached state
+                      <<FILL: validation status of one-server mode>>
   --mode two-servers  vLLM, SGLang or another OpenAI-compatible stack:
                       --base-url serves with prefix caching on, and
                       --nocache-url serves the same model with it off
                       (tested on real vLLM 0.33.0 and SGLang 0.5.23
                       servers; results in the README)
 
+The probes are 20 built-in two-turn conversations, or your own with
+--probes FILE (JSON Lines; the format is in the README).
+
 Standard library only. Python 3.8 or newer.
 
 Usage (from PyPI: pip install llm-cachecheck, then run llm-cachecheck
 in place of python cachecheck.py):
   python cachecheck.py --base-url http://127.0.0.1:8080
+  python cachecheck.py --mode one-server --base-url http://127.0.0.1:8000 \
+      --model Qwen/Qwen2.5-3B-Instruct
   python cachecheck.py --mode two-servers --base-url http://127.0.0.1:8000 \
       --nocache-url http://127.0.0.1:8100 --model Qwen/Qwen2.5-3B-Instruct
+  python cachecheck.py --base-url http://127.0.0.1:8080 \
+      --probes my_conversations.jsonl
 
 Exit status: 0 no difference and at least 80% of probes valid, 1 at
 least one valid probe differs, 2 inconclusive.
@@ -39,6 +51,7 @@ least one valid probe differs, 2 inconclusive.
 
 import argparse
 import binascii
+import hashlib
 import json
 import os
 import sys
@@ -46,7 +59,7 @@ import time
 import urllib.error
 import urllib.request
 
-__version__ = "0.2.3"
+__version__ = "0.3.0"
 
 CITATION = (
     "Patodiya, A. Same Request, Different Answer: Quantization Amplifies "
@@ -134,6 +147,116 @@ class RequestError(Exception):
     pass
 
 
+class ProbeFileError(Exception):
+    pass
+
+
+ROLES = ("system", "developer", "user", "assistant")
+PROBE_KEYS = {"turn1", "turn2", "messages", "followup", "id"}
+
+
+def builtin_probes():
+    return [{"messages": [{"role": "user", "content": q1}], "followup": q2,
+             "id": None} for q1, q2 in PROBES]
+
+
+def parse_probe(obj, where):
+    """One conversation from a probe file, in the form run_probe takes.
+
+    Short form: {"turn1": "...", "turn2": "..."}.
+    Full form:  {"messages": [...], "followup": "..."}, where messages is
+    the conversation up to and including the turn-1 user message (system
+    prompt and earlier turns allowed) and followup is the turn-2 user
+    message. Either form may carry an "id" that is copied to the report.
+    """
+    if not isinstance(obj, dict):
+        raise ProbeFileError("%s: expected a JSON object" % where)
+    unknown = sorted(set(obj) - PROBE_KEYS)
+    if unknown:
+        raise ProbeFileError(
+            '%s: unknown key "%s" (use "turn1" and "turn2", or "messages" '
+            'and "followup", plus an optional "id")' % (where, unknown[0]))
+    short, full = "turn1" in obj or "turn2" in obj, \
+        "messages" in obj or "followup" in obj
+    if short == full:
+        raise ProbeFileError(
+            '%s: give either "turn1" and "turn2", or "messages" and '
+            '"followup"' % where)
+    if short:
+        first, follow = obj.get("turn1"), obj.get("turn2")
+        if not isinstance(first, str) or not first.strip():
+            raise ProbeFileError('%s: "turn1" must be a non-empty string'
+                                 % where)
+        messages = [{"role": "user", "content": first}]
+        follow_key = "turn2"
+    else:
+        raw, follow = obj.get("messages"), obj.get("followup")
+        if not isinstance(raw, list) or not raw:
+            raise ProbeFileError('%s: "messages" must be a non-empty list'
+                                 % where)
+        messages = []
+        for m in raw:
+            if not (isinstance(m, dict) and m.get("role") in ROLES
+                    and isinstance(m.get("content"), str)):
+                raise ProbeFileError(
+                    '%s: each message needs a "role" (%s) and a text '
+                    '"content"' % (where, ", ".join(ROLES)))
+            messages.append({"role": m["role"], "content": m["content"]})
+        if messages[-1]["role"] != "user":
+            raise ProbeFileError('%s: the last message must have role "user"'
+                                 % where)
+        if not messages[-1]["content"].strip():
+            raise ProbeFileError('%s: the last message must have non-empty '
+                                 '"content"' % where)
+        follow_key = "followup"
+    if not isinstance(follow, str) or not follow.strip():
+        raise ProbeFileError('%s: "%s" must be a non-empty string'
+                             % (where, follow_key))
+    pid = obj.get("id")
+    if pid is not None and (isinstance(pid, bool)
+                            or not isinstance(pid, (str, int))):
+        raise ProbeFileError('%s: "id" must be a string or a whole number'
+                             % where)
+    return {"messages": messages, "followup": follow, "id": pid}
+
+
+def load_probes(path):
+    """Read a probe file: JSON Lines, or one JSON array of objects.
+
+    Returns (probes, sha256 of the file).
+    """
+    with open(path, "rb") as fh:
+        raw = fh.read()
+    digest = hashlib.sha256(raw).hexdigest()
+    try:
+        text = raw.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        raise ProbeFileError("%s is not UTF-8 text" % path)
+    items = []
+    if text.lstrip().startswith("["):
+        try:
+            data = json.loads(text)
+        except ValueError as exc:
+            raise ProbeFileError("%s: not valid JSON (%s)" % (path, exc))
+        items = [(obj, "item %d" % n) for n, obj in enumerate(data, 1)]
+    else:
+        # Split on CR, LF and CRLF only: JSON strings may hold other Unicode
+        # line separators (U+2028, U+0085) unescaped, but never a raw CR.
+        lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+        for n, line in enumerate(lines, 1):
+            if not line.strip():
+                continue
+            try:
+                obj = json.loads(line)
+            except ValueError as exc:
+                raise ProbeFileError("line %d: not valid JSON (%s)"
+                                     % (n, exc))
+            items.append((obj, "line %d" % n))
+    if not items:
+        raise ProbeFileError("%s holds no conversations" % path)
+    return [parse_probe(obj, where) for obj, where in items], digest
+
+
 def http_json(url, body=None, api_key=None, timeout=300):
     """POST body (or GET when body is None) and return the decoded JSON."""
     headers = {"Content-Type": "application/json"}
@@ -214,19 +337,26 @@ def hit_check(turn1, turn2, tolerance):
     if cached is None or p1 is None or c1 is None:
         return None, "server did not report cached tokens"
     # The last sampled token never had its KV computed, hence the - 1.
-    needed = p1 + c1 - 1 - tolerance
+    full = p1 + c1 - 1
+    # The hit may fall short by up to the tolerance (block-sized caches),
+    # but it must reach past the turn-1 prompt into the answer: a hit that
+    # stops at the prompt says nothing about the KV written while the
+    # answer was generated.
+    needed = max(p1 + 1, full - tolerance)
     if cached >= needed:
-        return True, "cached %d of %d" % (cached, p1 + c1 - 1)
+        return True, "cached %d of %d" % (cached, full)
+    if c1 - 1 <= tolerance and cached <= p1:
+        return False, ("turn-1 answer too short to confirm the cache hit: "
+                       "%d tokens, and the hit stopped at the turn-1 prompt"
+                       % c1)
     return False, ("cache hit covered %d tokens, turn 1 and its answer "
-                   "need about %d" % (cached, p1 + c1 - 1))
+                   "need about %d" % (cached, full))
 
 
 def run_probe(probe, index, args, nonce):
     """Run one probe on both paths, each twice. Returns a result dict."""
-    q1, q2 = probe
-    turn1 = [{"role": "user", "content": q1}]
+    turn1, q2 = list(probe["messages"]), probe["followup"]
     llama = args.mode == "llamacpp"
-    nocache_url = args.base_url if llama else args.nocache_url
 
     # Cache path, twice. Turn 1 is computed fresh each time, so the KV of
     # its answer is written during generation; turn 2 then reuses it. On
@@ -246,11 +376,20 @@ def run_probe(probe, index, args, nonce):
                        True if llama else None, salt)
         cache_runs.append((t1, t2))
 
+    # Recompute path, twice, on the same turn-2 request.
     turn2 = turn1 + [{"role": "assistant", "content": first1["content"]},
                      {"role": "user", "content": q2}]
-    nocache_runs = [post_chat(nocache_url, turn2, args,
-                              False if llama else None)
-                    for _ in range(2)]
+    if args.mode == "one-server":
+        # Each request gets a salt that no earlier request used, so it can
+        # reuse nothing, not even the state the first recompute left.
+        nocache_runs = [post_chat(args.base_url, turn2, args, None,
+                                  "cachecheck-%s-%d-r%d" % (nonce, index, k))
+                        for k in range(2)]
+    else:
+        nocache_url = args.base_url if llama else args.nocache_url
+        nocache_runs = [post_chat(nocache_url, turn2, args,
+                                  False if llama else None)
+                        for _ in range(2)]
 
     (t1a, w1), (t1b, w2) = cache_runs
     c1, c2 = nocache_runs
@@ -284,6 +423,7 @@ def run_probe(probe, index, args, nonce):
     differs = not same_answer(w1, c1)
     return {
         "probe": index,
+        "probe_id": probe.get("id"),
         "valid": not problems,
         "problems": problems,
         "paths_differ": differs,
@@ -323,6 +463,7 @@ def result_block(args, props, summary, when):
         "engine build: %s" % build,
         "model: %s" % model,
         "GPU or CPU: (fill in)",
+        "probe set: %s" % ("own file" if args.probes else "built-in"),
         "probes: %d planned, %d valid, %d differed" % (
             summary["probes_planned"], summary["probes_valid"],
             summary["probes_diverged"]),
@@ -348,36 +489,62 @@ def main(argv=None):
         description="Measure how often prompt caching changes greedy answers.")
     ap.add_argument("--base-url", required=True,
                     help="server root, e.g. http://127.0.0.1:8080")
-    ap.add_argument("--mode", choices=["llamacpp", "two-servers"],
+    ap.add_argument("--mode", choices=["llamacpp", "one-server",
+                                       "two-servers"],
                     default="llamacpp",
                     help="llamacpp (default): one llama.cpp server. "
-                         "two-servers: vLLM, SGLang or another OpenAI-"
-                         "compatible stack, with a second server that has "
-                         "prefix caching off")
+                         "one-server: one vLLM or SGLang server with prefix "
+                         "caching on; the recompute path uses a fresh "
+                         "cache_salt per request. two-servers: vLLM, SGLang "
+                         "or another OpenAI-compatible stack, with a second "
+                         "server that has prefix caching off")
     ap.add_argument("--nocache-url",
                     help="two-servers mode: same model, prefix caching off")
     ap.add_argument("--model", default=None,
                     help="model name to send (needed by vLLM and SGLang)")
-    ap.add_argument("--n", type=int, default=len(PROBES),
-                    help="number of probes, 1 to %d" % len(PROBES))
+    ap.add_argument("--probes", metavar="FILE", default=None,
+                    help="your own two-turn conversations, as JSON Lines, "
+                         "in place of the %d built-in ones" % len(PROBES))
+    ap.add_argument("--n", type=int, default=None,
+                    help="number of probes to run (default: all)")
     ap.add_argument("--max-tokens", type=int, default=256)
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--timeout", type=float, default=300)
     ap.add_argument("--hit-tolerance", type=int, default=None,
                     help="tokens the cache hit may fall short by (default "
-                         "1 for llamacpp, 32 for two-servers, which covers "
-                         "block-sized caches)")
+                         "1 for llamacpp, 32 for the other modes, which "
+                         "covers block-sized caches)")
     ap.add_argument("--skip-hit-check", action="store_true",
                     help="for servers that report no cached tokens; the "
-                         "cache hit is then assumed, not confirmed")
+                         "cache hit is then assumed, not confirmed. Not "
+                         "available with --mode one-server")
     ap.add_argument("--api-key", default=os.environ.get("CACHECHECK_API_KEY"))
     ap.add_argument("--out", default="cachecheck_report.json")
     ap.add_argument("--version", action="version", version=__version__)
     args = ap.parse_args(argv)
     if args.mode == "two-servers" and not args.nocache_url:
         ap.error("--mode two-servers needs --nocache-url")
-    if not 1 <= args.n <= len(PROBES):
-        ap.error("--n must be between 1 and %d" % len(PROBES))
+    if args.nocache_url and args.mode != "two-servers":
+        ap.error("--nocache-url needs --mode two-servers; add it, or drop "
+                 "--nocache-url")
+    if args.mode == "one-server" and args.skip_hit_check:
+        ap.error("--skip-hit-check cannot be used with --mode one-server: "
+                 "without cached-token counts the tool cannot tell whether "
+                 "the server honoured cache_salt. Use --mode two-servers.")
+    probe_sha = None
+    if args.probes:
+        try:
+            all_probes, probe_sha = load_probes(args.probes)
+        except OSError as exc:
+            ap.error("cannot read --probes file: %s" % exc)
+        except ProbeFileError as exc:
+            ap.error("--probes file: %s" % exc)
+    else:
+        all_probes = builtin_probes()
+    if args.n is None:
+        args.n = len(all_probes)
+    if not 1 <= args.n <= len(all_probes):
+        ap.error("--n must be between 1 and %d" % len(all_probes))
     if args.hit_tolerance is None:
         args.hit_tolerance = 1 if args.mode == "llamacpp" else 32
 
@@ -388,7 +555,7 @@ def main(argv=None):
               "other requests cannot share or evict its cache." % slots)
 
     nonce = binascii.hexlify(os.urandom(4)).decode()
-    probes = PROBES[:args.n]
+    probes = all_probes[:args.n]
     results, failures = [], 0
     for i, probe in enumerate(probes, 1):
         try:
@@ -416,6 +583,8 @@ def main(argv=None):
               "base_url": args.base_url, "nocache_url": args.nocache_url,
               "model": args.model, "max_tokens": args.max_tokens,
               "seed": args.seed, "server_props": props,
+              "probe_set": "own file" if args.probes else "built-in",
+              "probe_file_sha256": probe_sha,
               "summary": summary, "probes": results, "method": CITATION}
     out_dir = os.path.dirname(args.out)
     if out_dir:
@@ -433,15 +602,33 @@ def main(argv=None):
             print("  request failed: %d" % failures)
         for key, n in sorted(reasons.items()):
             print("  %s: %d" % (key, n))
+        if "turn-1 answer too short to confirm the cache hit" in reasons:
+            print("Ask for longer turn-1 answers (and keep --max-tokens high "
+                  "enough) so the cache hit can be confirmed.")
         if args.mode == "llamacpp":
             print("For a clean check, run llama-server with -np 1 and "
                   "--cache-ram 0, and send it no other traffic.")
+        elif args.mode == "one-server":
+            if any(k.startswith("recompute path reused") for k in reasons):
+                print("The recompute path reused cached tokens although "
+                      "each request had a fresh cache_salt, so this server "
+                      "seems to ignore cache_salt. Use --mode two-servers.")
+            print("Make sure the server has prefix caching on, reports "
+                  "cached tokens, and gets no other traffic.")
         else:
             print("Make sure both servers serve the same model with the same "
                   "settings, report cached tokens, and get no other traffic.")
     if args.skip_hit_check:
         print("Cache hits were assumed, not confirmed (--skip-hit-check).")
     print("Report written to %s" % args.out)
+    if args.probes:
+        print("The report holds every answer to your conversations, so keep "
+              "it private if they are. The result block below holds no "
+              "conversation text.")
+        if failures:
+            print("Lines above that say 'request failed' quote the server's "
+                  "error message, which can repeat text from your "
+                  "conversations, so share only the result block.")
     print()
     print(result_block(args, props, summary,
                        time.strftime("%Y-%m-%d %H:%M", time.gmtime())))
