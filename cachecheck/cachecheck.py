@@ -23,7 +23,9 @@ Three modes:
   --mode one-server   one vLLM or SGLang server with prefix caching on;
                       the recompute path sends each request with a fresh
                       "cache_salt", so it cannot reuse any cached state
-                      <<FILL: validation status of one-server mode>>
+                      (checked against the two-server mode on real
+                      vLLM 0.33.0 and SGLang 0.5.23 servers, SGLang
+                      with CUDA graphs disabled; results in the README)
   --mode two-servers  vLLM, SGLang or another OpenAI-compatible stack:
                       --base-url serves with prefix caching on, and
                       --nocache-url serves the same model with it off

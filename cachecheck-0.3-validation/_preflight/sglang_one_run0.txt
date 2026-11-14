@@ -1,0 +1,18 @@
+probe  1/1: DIFFERENT (from character 461)
+
+1 of 1 valid probes gave a different turn-2 answer on the cache path.
+Report written to /workspace/cc/results/_preflight/sglang_one_run0.json
+
+---- llm-cachecheck result ----
+tool: llm-cachecheck 0.3.0
+date (UTC): 2026-11-14 06:40
+mode: one-server
+engine build: (fill in engine and version)
+model: Qwen/Qwen2.5-3B-Instruct
+GPU or CPU: (fill in)
+probe set: built-in
+probes: 1 planned, 1 valid, 1 differed
+max tokens: 256, seed: 42, hit check: on
+-------------------------------
+To share this result (optional), open: https://github.com/aditi-p31/cache-divergence-study/issues/new?template=cachecheck-result.yml
+Method: Patodiya, A. Same Request, Different Answer: Quantization Amplifies Cache-Induced Divergence in LLM Serving. IEEE Access, 2026. doi:10.1109/ACCESS.2026.3749922

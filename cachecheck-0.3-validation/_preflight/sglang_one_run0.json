@@ -1,0 +1,100 @@
+{
+ "tool": "llm-cachecheck 0.3.0",
+ "mode": "one-server",
+ "base_url": "http://127.0.0.1:8100",
+ "nocache_url": null,
+ "model": "Qwen/Qwen2.5-3B-Instruct",
+ "max_tokens": 256,
+ "seed": 42,
+ "server_props": {},
+ "probe_set": "built-in",
+ "probe_file_sha256": null,
+ "summary": {
+  "probes_planned": 1,
+  "probes_failed": 0,
+  "probes_valid": 1,
+  "probes_diverged": 1,
+  "inconclusive_reasons": {},
+  "hit_check": "on"
+ },
+ "probes": [
+  {
+   "probe": 1,
+   "probe_id": null,
+   "valid": true,
+   "problems": [],
+   "paths_differ": true,
+   "reasoning_differs": false,
+   "first_difference_char": 461,
+   "cache_hit": [
+    "cached 313 of 313",
+    "cached 313 of 313"
+   ],
+   "recompute_cached_tokens": [
+    0,
+    0
+   ],
+   "turn1": [
+    {
+     "content": "To determine the duration of the train trip, we need to calculate the difference between the arrival time and the departure time. Here are the steps:\n\n1. **Identify the departure time and arrival time:**\n   - Departure time: 9:40\n   - Arrival time: 13:15\n\n2. **Break down the times into hours and minutes:**\n   - Departure time: 9 hours and 40 minutes\n   - Arrival time: 13 hours and 15 minutes\n\n3. **Calculate the difference in hours:**\n   - The arrival time is 13:15 and the departure time is 9:40.\n   - To find the difference in hours, subtract the departure hour from the arrival hour:\n     \\[\n     13 - 9 = 4 \\text{ hours}\n     \\]\n\n4. **Calculate the difference in minutes:**\n   - The arrival time is 13:15 and the departure time is 9:40.\n   - To find the difference in minutes, subtract the departure minute from the arrival minute:\n     \\[\n     15 - 40\n     \\]\n   - Since 15 minutes is less",
+     "reasoning": "",
+     "finish_reason": "length",
+     "prompt_tokens": 58,
+     "completion_tokens": 256,
+     "cached_tokens": 0,
+     "system_fingerprint": null
+    },
+    {
+     "content": "To determine the duration of the train trip, we need to calculate the difference between the arrival time and the departure time. Here are the steps:\n\n1. **Identify the departure time and arrival time:**\n   - Departure time: 9:40\n   - Arrival time: 13:15\n\n2. **Break down the times into hours and minutes:**\n   - Departure time: 9 hours and 40 minutes\n   - Arrival time: 13 hours and 15 minutes\n\n3. **Calculate the difference in hours:**\n   - The arrival time is 13:15 and the departure time is 9:40.\n   - To find the difference in hours, subtract the departure hour from the arrival hour:\n     \\[\n     13 - 9 = 4 \\text{ hours}\n     \\]\n\n4. **Calculate the difference in minutes:**\n   - The arrival time is 13:15 and the departure time is 9:40.\n   - To find the difference in minutes, subtract the departure minute from the arrival minute:\n     \\[\n     15 - 40\n     \\]\n   - Since 15 minutes is less",
+     "reasoning": "",
+     "finish_reason": "length",
+     "prompt_tokens": 58,
+     "completion_tokens": 256,
+     "cached_tokens": 0,
+     "system_fingerprint": null
+    }
+   ],
+   "cache_path": [
+    {
+     "content": "If the train had left 25 minutes later, the new departure time would be 10:05 (9:40 + 25 minutes). Assuming the train travels at the same speed, the travel duration remains the same, which is 3 hours and 35 minutes (from 9:40 to 13:15).\n\nTo find the new arrival time, we add the travel duration to the new departure time of 10:05:\n\n1. Start with the new departure time: 10:05\n2. Add the travel duration of 3 hours and 35 minutes:\n\n\\[\n10:05 + 3 \\text{ hours} = 1:05 \\text{ PM}\n\\]\n\\[\n1:05 \\text{ PM} + 35 \\text{ minutes} = 1:40 \\text{ PM}\n\\]\n\nTherefore, if the train had left 25 minutes later at 10:05, it would arrive at 1:40 PM.",
+     "reasoning": "",
+     "finish_reason": "stop",
+     "prompt_tokens": 349,
+     "completion_tokens": 225,
+     "cached_tokens": 313,
+     "system_fingerprint": null
+    },
+    {
+     "content": "If the train had left 25 minutes later, the new departure time would be 10:05 (9:40 + 25 minutes). Assuming the train travels at the same speed, the travel duration remains the same, which is 3 hours and 35 minutes (from 9:40 to 13:15).\n\nTo find the new arrival time, we add the travel duration to the new departure time of 10:05:\n\n1. Start with the new departure time: 10:05\n2. Add the travel duration of 3 hours and 35 minutes:\n\n\\[\n10:05 + 3 \\text{ hours} = 1:05 \\text{ PM}\n\\]\n\\[\n1:05 \\text{ PM} + 35 \\text{ minutes} = 1:40 \\text{ PM}\n\\]\n\nTherefore, if the train had left 25 minutes later at 10:05, it would arrive at 1:40 PM.",
+     "reasoning": "",
+     "finish_reason": "stop",
+     "prompt_tokens": 349,
+     "completion_tokens": 225,
+     "cached_tokens": 313,
+     "system_fingerprint": null
+    }
+   ],
+   "recompute_path": [
+    {
+     "content": "If the train had left 25 minutes later, the new departure time would be 10:05 (9:40 + 25 minutes). Assuming the train travels at the same speed, the travel duration remains the same, which is 3 hours and 35 minutes (from 9:40 to 13:15).\n\nTo find the new arrival time, we add the travel duration to the new departure time of 10:05:\n\n1. Start with the new departure time: 10:05\n2. Add the travel duration of 3 hours and 35 minutes:\n\n\\[\n10:05 + 3 \\text{ hours} = 13:05\n\\]\n\\[\n13:05 + 35 \\text{ minutes} = 13:40\n\\]\n\nTherefore, if the train had left 25 minutes later at 10:05, it would arrive at 13:40.",
+     "reasoning": "",
+     "finish_reason": "stop",
+     "prompt_tokens": 349,
+     "completion_tokens": 215,
+     "cached_tokens": 0,
+     "system_fingerprint": null
+    },
+    {
+     "content": "If the train had left 25 minutes later, the new departure time would be 10:05 (9:40 + 25 minutes). Assuming the train travels at the same speed, the travel duration remains the same, which is 3 hours and 35 minutes (from 9:40 to 13:15).\n\nTo find the new arrival time, we add the travel duration to the new departure time of 10:05:\n\n1. Start with the new departure time: 10:05\n2. Add the travel duration of 3 hours and 35 minutes:\n\n\\[\n10:05 + 3 \\text{ hours} = 13:05\n\\]\n\\[\n13:05 + 35 \\text{ minutes} = 13:40\n\\]\n\nTherefore, if the train had left 25 minutes later at 10:05, it would arrive at 13:40.",
+     "reasoning": "",
+     "finish_reason": "stop",
+     "prompt_tokens": 349,
+     "completion_tokens": 215,
+     "cached_tokens": 0,
+     "system_fingerprint": null
+    }
+   ]
+  }
+ ],
+ "method": "Patodiya, A. Same Request, Different Answer: Quantization Amplifies Cache-Induced Divergence in LLM Serving. IEEE Access, 2026. doi:10.1109/ACCESS.2026.3749922"
+}

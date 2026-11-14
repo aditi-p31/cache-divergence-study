@@ -64,7 +64,7 @@ llm-cachecheck --mode one-server --base-url http://127.0.0.1:8000 \
 ```
 
 For SGLang, add `--enable-cache-report` and `--sampling-defaults openai`.
-<<FILL: one-server validation sentence>>
+On real vLLM 0.33.0 and SGLang 0.5.23 servers (SGLang with CUDA graphs disabled), the recompute answers in this mode had the same text as those of a second server with prefix caching off, on all 20 conversations in every run ([details](https://github.com/aditi-p31/cache-divergence-study/blob/main/cachecheck-0.3-validation/README.md)).
 
 The server must honour `cache_salt`. If it does not, the recompute requests
 reuse cached state, the tool marks those probes as inconclusive and says so,
@@ -108,16 +108,16 @@ URLs would reach the same server.
 The tool then reports the recompute path reusing cached tokens and marks every
 probe invalid, so check the server logs if that happens.
 
-<<FILL: table lead-in naming both test sessions, prepared in the GPU runbook>>
-Tested on real servers on 2026-11-11 and 11-12 (UTC; one RTX 4090; the tool's 20
-conversations; details in the [currency note](https://github.com/aditi-p31/cache-divergence-study/blob/main/CURRENCY_CHECK_2026-11.md)):
+Tested on real servers (one RTX 4090; the tool's 20 conversations). The two-server and llama.cpp rows are from 2026-11-11 and 11-12 UTC ([currency note](https://github.com/aditi-p31/cache-divergence-study/blob/main/CURRENCY_CHECK_2026-11.md)); the one-server rows are from 2026-11-14 UTC ([details](https://github.com/aditi-p31/cache-divergence-study/blob/main/cachecheck-0.3-validation/README.md)):
 
 | Server | Model | Conversations with a different turn-2 answer | Both caches off |
 |---|---|---|---|
 | vLLM 0.33.0, two servers | Qwen2.5-3B-Instruct, BF16 | 14 of 20, in each of 5 runs | 0 of 20 |
 | SGLang 0.5.23, two servers (CUDA graphs disabled) | Qwen2.5-3B-Instruct, BF16 | 12 of 20, in each of 2 runs | 0 of 20 |
 | llama.cpp v0.9.0 | Qwen2.5-7B-Instruct, Q4_K_M | 11 of 20, in each of 2 runs | |
-<<FILL: one-server table rows>>
+| vLLM 0.33.0, one server | Qwen2.5-3B-Instruct, BF16 | 14 of 20, in each of 2 runs | |
+| SGLang 0.5.23, one server (CUDA graphs disabled) | Qwen2.5-3B-Instruct, BF16 | 12 of 20, in each of 2 runs | |
+| SGLang 0.5.23, one server, default settings | Qwen2.5-3B-Instruct, BF16 | 12 of 20, in each of 2 runs | |
 
 If you run it, an [issue](https://github.com/aditi-p31/cache-divergence-study/issues) with what you saw is welcome.
 

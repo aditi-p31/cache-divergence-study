@@ -1,0 +1,37 @@
+probe  1/20: DIFFERENT (from character 461)
+probe  2/20: DIFFERENT (from character 657)
+probe  3/20: DIFFERENT (from character 753)
+probe  4/20: DIFFERENT (from character 117)
+probe  5/20: DIFFERENT (from character 489)
+probe  6/20: same
+probe  7/20: DIFFERENT (from character 411)
+probe  8/20: DIFFERENT (from character 392)
+probe  9/20: same
+probe 10/20: DIFFERENT (from character 119)
+probe 11/20: DIFFERENT (from character 139)
+probe 12/20: DIFFERENT (from character 545)
+probe 13/20: DIFFERENT (from character 178)
+probe 14/20: same
+probe 15/20: DIFFERENT (from character 0)
+probe 16/20: same
+probe 17/20: DIFFERENT (from character 532)
+probe 18/20: DIFFERENT (from character 520)
+probe 19/20: same
+probe 20/20: same
+
+14 of 20 valid probes gave a different turn-2 answer on the cache path.
+Report written to /workspace/cc/results/V_vllm/two_run1.json
+
+---- llm-cachecheck result ----
+tool: llm-cachecheck 0.3.0
+date (UTC): 2026-11-14 06:47
+mode: two-servers
+engine build: (fill in engine and version)
+model: Qwen/Qwen2.5-3B-Instruct
+GPU or CPU: (fill in)
+probe set: built-in
+probes: 20 planned, 20 valid, 14 differed
+max tokens: 256, seed: 42, hit check: on
+-------------------------------
+To share this result (optional), open: https://github.com/aditi-p31/cache-divergence-study/issues/new?template=cachecheck-result.yml
+Method: Patodiya, A. Same Request, Different Answer: Quantization Amplifies Cache-Induced Divergence in LLM Serving. IEEE Access, 2026. doi:10.1109/ACCESS.2026.3749922

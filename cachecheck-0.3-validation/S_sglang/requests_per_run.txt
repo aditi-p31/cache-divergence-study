@@ -1,0 +1,1 @@
+two_run1 sent 80 requests to the cache server and 40 to the cache-off server; one_run1 and one_run2 together sent 240 and 0

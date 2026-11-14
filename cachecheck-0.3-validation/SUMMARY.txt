@@ -1,0 +1,18 @@
+llm-cachecheck runs:
+  SDEF_sglang/one_run1.json    20 planned, 20 valid, 12 differed, inconclusive {}
+  SDEF_sglang/one_run2.json    20 planned, 20 valid, 12 differed, inconclusive {}
+  S_sglang/one_run1.json       20 planned, 20 valid, 12 differed, inconclusive {}
+  S_sglang/one_run2.json       20 planned, 20 valid, 12 differed, inconclusive {}
+  S_sglang/two_run1.json       20 planned, 20 valid, 12 differed, inconclusive {}
+  V_vllm/one_run1.json         20 planned, 20 valid, 14 differed, inconclusive {}
+  V_vllm/one_run2.json         20 planned, 20 valid, 14 differed, inconclusive {}
+  V_vllm/two_run1.json         20 planned, 20 valid, 14 differed, inconclusive {}
+  V_vllm/two_run2.json         20 planned, 20 valid, 14 differed, inconclusive {}
+  _preflight/sglang_one_run0.json 1 planned, 1 valid, 1 differed, inconclusive {}
+  _preflight/vllm_one_run0.json 2 planned, 2 valid, 2 differed, inconclusive {}
+One-server vs two-server comparisons:
+  S_sglang/compare.txt: salted recompute identical to the cache-off server: 20 of 20 | AGREE | salted recompute identical to the cache-off server: 20 of 20 | AGREE
+  V_vllm/compare.txt: salted recompute identical to the cache-off server: 20 of 20 | AGREE | salted recompute identical to the cache-off server: 20 of 20 | AGREE
+Episode comparisons (episodes that differ):
+  B2_vllm_path               48 of 80
+  D2_vllm_bi_path            0 of 80

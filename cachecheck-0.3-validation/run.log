@@ -1,0 +1,90 @@
+[2026-11-14T06:02:15Z] === run start: stages setup preflight; rate 91 cents/h; cap $4; $0.19 spent so far ===
+[2026-11-14T06:02:15Z] --- stage setup ---
+[2026-11-14T06:34:41Z] setup done; $0.68 spent
+[2026-11-14T06:34:41Z] --- stage setup done; $0.68 spent ---
+[2026-11-14T06:34:41Z] --- stage preflight ---
+[2026-11-14T06:34:56Z] self-stop key OK
+[2026-11-14T06:36:58Z] vLLM up: pre_vllm after 122 s
+[2026-11-14T06:37:22Z] cachecheck _preflight/vllm_one_run0: exit 1; 2 of 2 valid probes gave a different turn-2 answer on the cache path.
+vLLM one-server smoke OK: 2 of 2 valid; cache hits [['cached 304 of 313', 'cached 304 of 313'], ['cached 304 of 304', 'cached 304 of 304']]
+[2026-11-14T06:37:25Z] PREFLIGHT_OK (vLLM); $0.72 spent
+[2026-11-14T06:39:24Z] SGLang up: pre_sglang after 118 s
+[2026-11-14T06:40:02Z] cachecheck _preflight/sglang_one_run0: exit 1; 1 of 1 valid probes gave a different turn-2 answer on the cache path.
+[2026-11-14T06:40:02Z] PREFLIGHT_SGLANG_OK
+[2026-11-14T06:41:08Z] PREFLIGHT_HARNESS_OK
+[2026-11-14T06:41:08Z] preflight done; $0.78 spent
+[2026-11-14T06:41:08Z] --- stage preflight done; $0.78 spent ---
+llm-cachecheck runs:
+  _preflight/sglang_one_run0.json 1 planned, 1 valid, 1 differed, inconclusive {}
+  _preflight/vllm_one_run0.json 2 planned, 2 valid, 2 differed, inconclusive {}
+One-server vs two-server comparisons:
+Episode comparisons (episodes that differ):
+[2026-11-14T06:41:08Z] archive OK: 37 entries, sha256 1c35b8c2141d
+[2026-11-14T06:41:08Z] run ended (exit; stages asked: setup preflight; stages run: 2). $0.78 spent. The watchdog stops the pod after its idle limit unless /workspace/cc/HOLD exists.
+[2026-11-14T06:41:30Z] === run start: stages V S SDEF D2 DEF2; rate 91 cents/h; cap $5; $0.78 spent so far ===
+[2026-11-14T06:41:30Z] --- stage V ---
+[2026-11-14T06:42:36Z] vLLM up: V_cache after 68 s
+[2026-11-14T06:43:29Z] vLLM up: V_nocache after 54 s
+[2026-11-14T06:47:02Z] cachecheck V_vllm/two_run1: exit 1; 14 of 20 valid probes gave a different turn-2 answer on the cache path.
+[2026-11-14T06:50:36Z] cachecheck V_vllm/one_run1: exit 1; 14 of 20 valid probes gave a different turn-2 answer on the cache path.
+[2026-11-14T06:54:09Z] cachecheck V_vllm/two_run2: exit 1; 14 of 20 valid probes gave a different turn-2 answer on the cache path.
+[2026-11-14T06:57:42Z] cachecheck V_vllm/one_run2: exit 1; 14 of 20 valid probes gave a different turn-2 answer on the cache path.
+[2026-11-14T06:57:45Z] compare V_vllm: exit 0 (0 = one-server agrees with two-server on every probe); salted recompute identical to the cache-off server: 20 of 20 differ on the cache path: one-server 14, two-servers 14 AGREE salted recompute identical to the cache-off server: 20 of 20 differ on the cache path: one-server 14, two-servers 14 AGREE 
+[2026-11-14T06:57:45Z] telemetry V_vllm: one_run1.json: ok; turn-1 cached max 0; cache-path turn-2 cached min 96 max 304; recompute cached max 0; not reported 0 one_run2.json: ok; turn-1 cached max 0; cache-path turn-2 cached min 96 max 304; recompute cached max 0; not reported 0 two_run1.json: ok; turn-1 cached max 0; cache-path turn-2 cached min 96 max 304; recompute cached max 0; not reported 0 two_run2.json: ok; turn-1 cached max 0; cache-path turn-2 cached min 96 max 304; recompute cached max 0; not reported 0 
+[2026-11-14T06:57:46Z] --- stage V done; $1.03 spent ---
+[2026-11-14T06:57:46Z] archive OK: 60 entries, sha256 5aa1ce03e272
+[2026-11-14T06:57:46Z] --- stage S ---
+[2026-11-14T06:58:25Z] SGLang up: S_cache after 40 s
+[2026-11-14T06:59:03Z] SGLang up: S_nocache after 38 s
+[2026-11-14T07:08:11Z] cachecheck S_sglang/two_run1: exit 1; 12 of 20 valid probes gave a different turn-2 answer on the cache path.
+[2026-11-14T07:17:26Z] cachecheck S_sglang/one_run1: exit 1; 12 of 20 valid probes gave a different turn-2 answer on the cache path.
+[2026-11-14T07:26:44Z] cachecheck S_sglang/one_run2: exit 1; 12 of 20 valid probes gave a different turn-2 answer on the cache path.
+[2026-11-14T07:26:47Z] compare S_sglang: exit 0 (0 = one-server agrees with two-server on every probe); salted recompute identical to the cache-off server: 20 of 20 differ on the cache path: one-server 12, two-servers 12 AGREE salted recompute identical to the cache-off server: 20 of 20 differ on the cache path: one-server 12, two-servers 12 AGREE 
+[2026-11-14T07:26:47Z] telemetry S_sglang: one_run1.json: ok; turn-1 cached max 0; cache-path turn-2 cached min 106 max 315; recompute cached max 0; not reported 0 one_run2.json: ok; turn-1 cached max 0; cache-path turn-2 cached min 106 max 315; recompute cached max 0; not reported 0 two_run1.json: ok; turn-1 cached max 0; cache-path turn-2 cached min 106 max 315; recompute cached max 0; not reported 0 
+[2026-11-14T07:26:47Z] --- stage S done; $1.47 spent ---
+[2026-11-14T07:26:47Z] archive OK: 76 entries, sha256 a21738f0edb3
+[2026-11-14T07:26:47Z] --- stage SDEF ---
+[2026-11-14T07:27:35Z] SGLang up: SDEF after 48 s
+[2026-11-14T07:30:49Z] cachecheck SDEF_sglang/one_run1: exit 1; 12 of 20 valid probes gave a different turn-2 answer on the cache path.
+[2026-11-14T07:34:03Z] cachecheck SDEF_sglang/one_run2: exit 1; 12 of 20 valid probes gave a different turn-2 answer on the cache path.
+[2026-11-14T07:34:06Z] telemetry SDEF_sglang: one_run1.json: ok; turn-1 cached max 0; cache-path turn-2 cached min 106 max 315; recompute cached max 0; not reported 0 one_run2.json: ok; turn-1 cached max 0; cache-path turn-2 cached min 106 max 315; recompute cached max 0; not reported 0 
+[2026-11-14T07:34:06Z] --- stage SDEF done; $1.58 spent ---
+[2026-11-14T07:34:06Z] archive OK: 85 entries, sha256 7a57a2fe92b7
+[2026-11-14T07:34:06Z] --- stage D2 ---
+[2026-11-14T07:34:06Z] setup for D2/DEF2: harness environment and Qwen/Qwen2.5-7B-Instruct at a09a35458c702b33eeacc393d103063234e8bc28
+[2026-11-14T07:35:19Z] setup for D2/DEF2 done; $1.60 spent
+[2026-11-14T07:37:00Z] vLLM up: D2_vllm_bi_on after 102 s
+[2026-11-14T07:57:28Z] OK D2_vllm_bi/arm_on in 1228 s; $1.94 spent
+[2026-11-14T07:58:16Z] vLLM up: D2_vllm_bi_off after 50 s
+[2026-11-14T08:29:39Z] OK D2_vllm_bi/arm_off in 1883 s; $2.43 spent
+[2026-11-14T08:29:39Z] compare D2_vllm_bi_path: 0 of 80 episodes differ; 0 missing; 25900 shared tokens; 0 log-prob differences
+[2026-11-14T08:29:39Z] --- stage D2 done; $2.43 spent ---
+[2026-11-14T08:29:39Z] archive OK: 111 entries, sha256 2aa30e8a8924
+[2026-11-14T08:29:39Z] --- stage DEF2 ---
+[2026-11-14T08:30:44Z] vLLM up: B2_vllm_on after 66 s
+[2026-11-14T08:40:37Z] OK B2_vllm/arm_on in 593 s; $2.59 spent
+[2026-11-14T08:41:21Z] vLLM up: B2_vllm_off after 46 s
+[2026-11-14T09:00:33Z] OK B2_vllm/arm_off in 1152 s; $2.89 spent
+[2026-11-14T09:00:33Z] compare B2_vllm_path: 48 of 80 episodes differ; 0 missing; 15372 shared tokens; 10338 log-prob differences
+[2026-11-14T09:00:33Z] --- stage DEF2 done; $2.89 spent ---
+[2026-11-14T09:00:33Z] archive OK: 135 entries, sha256 230733b799df
+llm-cachecheck runs:
+  SDEF_sglang/one_run1.json    20 planned, 20 valid, 12 differed, inconclusive {}
+  SDEF_sglang/one_run2.json    20 planned, 20 valid, 12 differed, inconclusive {}
+  S_sglang/one_run1.json       20 planned, 20 valid, 12 differed, inconclusive {}
+  S_sglang/one_run2.json       20 planned, 20 valid, 12 differed, inconclusive {}
+  S_sglang/two_run1.json       20 planned, 20 valid, 12 differed, inconclusive {}
+  V_vllm/one_run1.json         20 planned, 20 valid, 14 differed, inconclusive {}
+  V_vllm/one_run2.json         20 planned, 20 valid, 14 differed, inconclusive {}
+  V_vllm/two_run1.json         20 planned, 20 valid, 14 differed, inconclusive {}
+  V_vllm/two_run2.json         20 planned, 20 valid, 14 differed, inconclusive {}
+  _preflight/sglang_one_run0.json 1 planned, 1 valid, 1 differed, inconclusive {}
+  _preflight/vllm_one_run0.json 2 planned, 2 valid, 2 differed, inconclusive {}
+One-server vs two-server comparisons:
+  S_sglang/compare.txt: salted recompute identical to the cache-off server: 20 of 20 | AGREE | salted recompute identical to the cache-off server: 20 of 20 | AGREE
+  V_vllm/compare.txt: salted recompute identical to the cache-off server: 20 of 20 | AGREE | salted recompute identical to the cache-off server: 20 of 20 | AGREE
+Episode comparisons (episodes that differ):
+  B2_vllm_path               48 of 80
+  D2_vllm_bi_path            0 of 80
+[2026-11-14T09:00:34Z] archive OK: 135 entries, sha256 2d1fb4e87b7a
+[2026-11-14T09:00:34Z] run ended (exit; stages asked: V S SDEF D2 DEF2; stages run: 5). $2.89 spent. The watchdog stops the pod after its idle limit unless /workspace/cc/HOLD exists.
