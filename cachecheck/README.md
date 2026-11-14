@@ -172,7 +172,8 @@ caches in blocks (vLLM uses 16 tokens by default) can stop the hit at the
 prompt when the answer is short, and the probe is then inconclusive.
 
 The JSON report saves every answer, so keep it private if your conversations
-are. The printed result block holds counts only, with no conversation text.
+are. The printed result block holds no conversation text: only the counts
+and the run settings, including the model name.
 
 ## Reading the result
 
