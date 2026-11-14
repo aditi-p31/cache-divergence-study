@@ -11,6 +11,10 @@ the paper can be recomputed from the raw logs and the released telemetry
 summary (`results/cache_telemetry.json`), and so that the measurement
 can be repeated on other stacks.
 
+Write-up for practitioners: [Your prompt cache can change your model's answer. Here's how to check.](posts/prompt-cache-changes-answers/README.md)
+It covers the effect, what removes it and what that costs, and how to check your own server with
+[`llm-cachecheck`](cachecheck/).
+
 ## Cite this work
 
 If you use this harness or the divergence dataset, please cite the paper:
