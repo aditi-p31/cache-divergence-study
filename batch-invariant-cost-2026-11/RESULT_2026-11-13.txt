@@ -1,0 +1,13 @@
+Whole passes (different trajectories; totals are not directly comparable):
+  default, cache on              1030 requests, median 0.417 s, p95 1.364 s, latency sum 542.6 s
+  default, cache off              956 requests, median 1.270 s, p95 2.529 s, latency sum 1300.5 s
+  default, cache off (repeat)     956 requests, median 1.144 s, p95 2.400 s, latency sum 1188.9 s
+  batch-invariant, cache on       923 requests, median 0.964 s, p95 3.288 s, latency sum 1133.6 s
+  batch-invariant, cache off      923 requests, median 1.647 s, p95 3.894 s, latency sum 1777.0 s
+Matched requests (identical prompt and completion in both passes):
+  default, cache off           -> default, cache off (repeat)   956 requests in 80 episodes: time ratio 0.91 (sums), 0.91 (median per request)
+  default, cache on            -> batch-invariant, cache on     543 requests in 72 episodes: time ratio 2.30 (sums), 2.29 (median per request)
+  default, cache off           -> batch-invariant, cache off    441 requests in 69 episodes: time ratio 1.37 (sums), 1.30 (median per request)
+  default, cache off           -> batch-invariant, cache on     441 requests in 69 episodes: time ratio 0.80 (sums), 0.68 (median per request)
+  default, cache off (repeat)  -> batch-invariant, cache on     441 requests in 69 episodes: time ratio 0.88 (sums), 0.75 (median per request)
+  default, cache on            -> default, cache off            596 requests in 73 episodes: time ratio 2.62 (sums), 3.02 (median per request)
